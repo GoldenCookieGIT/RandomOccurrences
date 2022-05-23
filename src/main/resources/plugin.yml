@@ -1,0 +1,4 @@
+name: RandomOccurrences
+main: me.cookie.randomoccurrences.RandomOccurrences
+version: 0.1
+api-version: 1.13
