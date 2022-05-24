@@ -1,3 +1,7 @@
 package me.cookie.randomoccurrences.occurrences.events
 
-interface BlockBreakOccurence
+import org.bukkit.event.block.BlockBreakEvent
+
+interface BlockBreakOccurence {
+    fun onBlockBreak(event: BlockBreakEvent)
+}

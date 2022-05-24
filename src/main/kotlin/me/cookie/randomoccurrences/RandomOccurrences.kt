@@ -1,5 +1,6 @@
 package me.cookie.randomoccurrences
 
+import me.cookie.randomoccurrences.listeners.BlockBreak
 import me.cookie.randomoccurrences.listeners.EntityKill
 import org.bukkit.event.EventHandler
 import org.bukkit.event.Listener
@@ -16,6 +17,7 @@ class RandomOccurrences: JavaPlugin(), Listener {
         saveDefaultConfig()
         server.pluginManager.registerEvents(this, this)
         server.pluginManager.registerEvents(EntityKill(occurrenceManager), this)
+        server.pluginManager.registerEvents(BlockBreak(occurrenceManager), this)
         return
     }
 
