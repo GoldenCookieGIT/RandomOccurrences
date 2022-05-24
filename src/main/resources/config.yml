@@ -1,0 +1,65 @@
+down-time: 25 # time in minutes between occurrences (starts timer after last occurrence has ended)
+
+# Do not modify the names of the occurrences, only change enabled to true or false to enable/disable them
+occurrences:
+  stone-miner:
+    enabled: true # if the occurrence is enabled or not.
+    time: 8 # in minutes how long the occurrence lasts.
+    rewards:
+      place:
+        1:
+          - CoolItem
+        2:
+          - CoolItem
+        3:
+          - CoolItem
+    participation-awards: # Given if player participated in occurrence but didn't get a reward for being one of the winners
+      - MehItem
+
+  gold-miner:
+    enabled: true
+    time: 8
+    rewards:
+      place:
+        1:
+          - CoolItem
+        2:
+          - CoolItem
+        3:
+          - CoolItem
+    participation-awards:
+      - MehItem
+
+  creeper-slayer:
+    enabled: true
+    time: 8
+    rewards:
+      place:
+        1:
+          - CoolItem
+        2:
+          - CoolItem
+        3:
+          - CoolItem
+    participation-awards:
+      - MehItem
+  # ...
+
+items:
+  CoolItem:
+    material: NETHERITE_SWORD # use https://hub.spigotmc.org/javadocs/bukkit/org/bukkit/Material.html to get item material
+    amount: 1
+    item-name: "&6This is a very cool item!" # Supports '&' color codes
+    lore:
+      - "<green> lore line 1"
+      - "<yellow> lore line 2"
+    enchantments: # use https://hub.spigotmc.org/javadocs/bukkit/org/bukkit/enchantments/Enchantment.html to get enchantment id (ENCHANTMENT:LEVEL)
+      - "DAMAGE_ALL:1"
+      - "DAMAGE_UNDEAD:2"
+      - "DAMAGE_ARTHROPODS:3"
+  MehItem:
+    material: WOODEN_SWORD
+    item-name: "<gray>This is a meh item..."
+    lore:
+      - "<green> lore line 1"
+      - "<yellow> lore line 2"
