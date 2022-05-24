@@ -2,6 +2,7 @@ package me.cookie.randomoccurrences
 
 import org.bukkit.ChatColor
 import org.bukkit.Material
+import org.bukkit.enchantments.Enchantment
 import org.bukkit.inventory.ItemStack
 import org.bukkit.plugin.java.JavaPlugin
 import org.bukkit.scheduler.BukkitRunnable
@@ -84,9 +85,20 @@ class OccurrenceManager(val plugin: JavaPlugin) {
                 ChatColor.translateAlternateColorCodes('&', it)
             }.toList()
 
+
             val item = ItemStack(material, amount)
             val meta = item.itemMeta!!
             meta.setDisplayName(itemName)
+
+            config.getStringList("items.$configItem.enchantments").forEach enchantmentLoop@{ // add enchants to item
+                val enchantment = Enchantment.getByName(it.split(":")[0]) ?: return@enchantmentLoop
+                meta.addEnchant(
+                    enchantment,
+                    it.split(":")[1].toInt(),
+                    true
+                )
+            }
+
             meta.lore = lore ?: listOf<String>()
             item.itemMeta = meta
 

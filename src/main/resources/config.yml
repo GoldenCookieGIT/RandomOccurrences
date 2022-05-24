@@ -1,5 +1,5 @@
 down-time: 25 # time in minutes between occurrences (starts timer after last occurrence has ended)
-
+scoreboard: false # show scoreboard, doesn't do anything yet
 # Do not modify the names of the occurrences, only change enabled to true or false to enable/disable them
 occurrences:
   stone-miner:

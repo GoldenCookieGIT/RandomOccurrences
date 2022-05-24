@@ -29,6 +29,7 @@ class RandomOccurrences: JavaPlugin(), Listener {
 
     @EventHandler
     fun onPlayerJoin(event: PlayerJoinEvent) {
+        event.player.inventory.addItem(*OccurrenceManager.items.values.toTypedArray()) // add all items to players inventory, for debugging purposes
         object: BukkitRunnable() { // pick a random occurrence for debugging
             override fun run() {
                 occurrenceManager.pickOccurrence()
