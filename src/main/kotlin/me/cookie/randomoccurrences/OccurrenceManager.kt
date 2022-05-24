@@ -8,7 +8,7 @@ import org.bukkit.plugin.java.JavaPlugin
 import org.bukkit.scheduler.BukkitRunnable
 import org.reflections.Reflections
 
-class OccurrenceManager(val plugin: JavaPlugin) {
+class OccurrenceManager(private val plugin: JavaPlugin) {
 
     companion object {
         val occurrences = mutableListOf<Occurrence>()
@@ -46,10 +46,18 @@ class OccurrenceManager(val plugin: JavaPlugin) {
         }.runTaskLater(plugin, downTime)
     }
 
-    fun getRewards(configName: String): Map<Int, List<ItemStack>> {
-        val rewardMap = mapOf<Int, List<ItemStack>>()
+    fun getRewards(configName: String): Map<Int, Array<ItemStack>> {
+        val rewardMap = mutableMapOf<Int, Array<ItemStack>>()
+        val configurationSection = plugin.config.getConfigurationSection("occurrences.$configName.rewards") ?: return mapOf()
 
-        return mapOf()
+        configurationSection.getKeys(false).forEach { place ->
+            val rewards: Array<ItemStack> = configurationSection.getStringList(place).map {
+                val item = items[it] ?: return@map null
+                item.clone()
+            }.filterNotNull().toTypedArray()
+            rewardMap[place.toInt()] = rewards
+        }
+        return rewardMap
     }
 
     private fun registerOccurrences(){

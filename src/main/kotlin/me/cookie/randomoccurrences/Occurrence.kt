@@ -17,7 +17,7 @@ abstract class Occurrence(val plugin: JavaPlugin, val occurrenceManager: Occurre
     val isEnabled = plugin.config.getBoolean("occurrences.$configName.enabled")
     /* length in minutes of this occurrence */
     private val time: Long = plugin.config.getInt("occurrences.$configName.time").toLong() * 1200 /* from minutes to ticks */
-    val rewardMap: Map<Int /* leaderboard place */, List<ItemStack> /* rewards to give */> = occurrenceManager.getRewards(configName)
+    val rewardMap: Map<Int /* leaderboard place */, Array<ItemStack> /* rewards to give */> = occurrenceManager.getRewards(configName)
 
     fun start() {
         occurrenceManager.currentOccurrence = this
@@ -31,13 +31,28 @@ abstract class Occurrence(val plugin: JavaPlugin, val occurrenceManager: Occurre
     fun end(){
         // Give rewards
         // Send victory message
+        val sortedMap = playerScore.toList().sortedBy { (_, value) -> value }.toMap()
+        var place = 1
+        sortedMap.forEach { (uuid, score) ->
+            place++
+            val player = Bukkit.getPlayer(uuid) ?: return@forEach
+            if(rewardMap.containsKey(place)) {
+                player.inventory.addItem(*rewardMap[place]!!)
+                player.sendMessage("You have won the $configName occurrence with score $score!")
+            }else if(score != 0 && true /* TODO: check for if participation awards are enabled */){
+                player.sendMessage("You got a participation award!")
+            }else{
+                player.sendMessage("You did not participate in the occurrence")
+            }
+        }
+
         Bukkit.getServer().onlinePlayers.forEach {
             it.sendMessage("ended $configName")
         }
         cleanup()
         playerScore.clear()
-        occurrenceManager.startDowntime()
         occurrenceManager.currentOccurrence = null
+        occurrenceManager.startDowntime()
     }
 
     fun addScore(player: Player, score: Int){
