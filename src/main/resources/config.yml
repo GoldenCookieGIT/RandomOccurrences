@@ -32,7 +32,7 @@ occurrences:
 
   creeper-slayer:
     enabled: true
-    time: 8
+    time: 1
     rewards:
       place:
         1:

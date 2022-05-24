@@ -1,5 +1,6 @@
 package me.cookie.randomoccurrences
 
+import org.bukkit.Bukkit
 import org.bukkit.entity.Player
 import org.bukkit.inventory.ItemStack
 import org.bukkit.plugin.java.JavaPlugin
@@ -20,6 +21,9 @@ abstract class Occurrence(val plugin: JavaPlugin, val occurrenceManager: Occurre
 
     fun start() {
         occurrenceManager.currentOccurrence = this
+        Bukkit.getServer().onlinePlayers.forEach {
+            it.sendMessage("started $configName")
+        }
         startTimer()
         occur()
     }
@@ -27,6 +31,9 @@ abstract class Occurrence(val plugin: JavaPlugin, val occurrenceManager: Occurre
     fun end(){
         // Give rewards
         // Send victory message
+        Bukkit.getServer().onlinePlayers.forEach {
+            it.sendMessage("ended $configName")
+        }
         cleanup()
         playerScore.clear()
         occurrenceManager.startDowntime()
