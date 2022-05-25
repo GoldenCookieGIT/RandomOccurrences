@@ -20,8 +20,9 @@ class RandomOccurrences: JavaPlugin(), Listener {
         server.pluginManager.registerEvents(EntityDamage(occurrenceManager), this)
         server.pluginManager.registerEvents(EntityDamageByEntity(occurrenceManager), this)
         server.pluginManager.registerEvents(EntityKill(occurrenceManager), this)
+        server.pluginManager.registerEvents(PlayerJump(occurrenceManager), this)
         server.pluginManager.registerEvents(PlayerFish(occurrenceManager), this)
-        // server.pluginManager.registerEvents(PlayerMove(occurrenceManager), this)
+        server.pluginManager.registerEvents(PlayerMove(occurrenceManager), this)
         return
     }
 
