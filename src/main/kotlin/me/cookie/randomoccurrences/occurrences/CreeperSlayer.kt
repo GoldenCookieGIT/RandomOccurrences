@@ -4,6 +4,7 @@ import me.cookie.randomoccurrences.Occurrence
 import me.cookie.randomoccurrences.OccurrenceManager
 import me.cookie.randomoccurrences.occurrences.events.EntityKillOccurrence
 import org.bukkit.Bukkit
+import org.bukkit.entity.Creeper
 import org.bukkit.entity.EntityType
 import org.bukkit.event.entity.EntityDeathEvent
 import org.bukkit.plugin.java.JavaPlugin
@@ -15,6 +16,11 @@ class CreeperSlayer(plugin: JavaPlugin, occurrenceManager: OccurrenceManager):
         get() = "creeper-slayer"
     override val friendlyName: String
         get() = "Creeper Slayer"
+    override val description: List<String>
+        get() = listOf(
+            "#4d4d4dKill the most creepers to win!",
+            "#4d4d4dCreepers are worth 1 point while charged ones are 10!"
+        )
 
     override fun occur() {
         Bukkit.getServer().onlinePlayers.stream().forEach { it.sendMessage("YAY!") }
@@ -29,9 +35,11 @@ class CreeperSlayer(plugin: JavaPlugin, occurrenceManager: OccurrenceManager):
         val killer = entity.killer ?: return
 
         if (entity.type != EntityType.CREEPER) return
-
-        killer.sendMessage("YOU FUCKER!!")
-
-        addScore(killer, 1)
+        entity as Creeper
+        if(entity.isPowered) {
+            addScore(killer, 10)
+        } else{
+            addScore(killer, 1)
+        }
     }
 }

@@ -13,7 +13,10 @@ class GoldMiner(plugin: JavaPlugin, occurrenceManager: OccurrenceManager):
         get() = "gold-miner"
     override val friendlyName: String
         get() = "Gold Miner"
-
+    override val description: List<String>
+        get() = listOf(
+            "#4d4d4dMine the most gold to win!",
+        )
     override fun occur() {
         return
     }

@@ -12,7 +12,10 @@ class Jumper(plugin: JavaPlugin, occurrenceManager: OccurrenceManager):
         get() = "jumper"
     override val friendlyName: String
         get() = "Jumper"
-
+    override val description: List<String>
+        get() = listOf(
+            "#4d4d4dJump the most times to win!",
+        )
     override fun occur() {
         return
     }

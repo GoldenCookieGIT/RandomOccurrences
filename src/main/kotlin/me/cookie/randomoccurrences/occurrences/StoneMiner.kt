@@ -13,7 +13,10 @@ class StoneMiner(plugin: JavaPlugin, occurrenceManager: OccurrenceManager):
         get() = "stone-miner"
     override val friendlyName: String
         get() = "Stone Miner"
-
+    override val description: List<String>
+        get() = listOf(
+            "#4d4d4dMine the most stone to win!",
+        )
     override fun occur() {
         return
     }

@@ -13,6 +13,10 @@ class FishingPros(plugin: JavaPlugin, occurrenceManager: OccurrenceManager):
         get() = "fishing-pros"
     override val friendlyName: String
         get() = "Fishing Pros"
+    override val description: List<String>
+        get() = listOf(
+            "#4d4d4dFish up the most items to win!",
+        )
 
     override fun occur() {
         return

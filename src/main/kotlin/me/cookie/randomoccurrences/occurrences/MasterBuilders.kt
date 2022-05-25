@@ -12,7 +12,10 @@ class MasterBuilders(plugin: JavaPlugin, occurrenceManager: OccurrenceManager):
         get() = "master-builders"
     override val friendlyName: String
         get() = "Master Builders"
-
+    override val description: List<String>
+        get() = listOf(
+            "#4d4d4dPlace the most blocks to win!",
+        )
     override fun occur() {
         return
     }

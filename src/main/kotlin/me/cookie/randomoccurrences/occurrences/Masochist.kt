@@ -13,7 +13,10 @@ class Masochist(plugin: JavaPlugin, occurrenceManager: OccurrenceManager):
         get() = "masochist"
     override val friendlyName: String
         get() = "Masochist"
-
+    override val description: List<String>
+        get() = listOf(
+            "#4d4d4dTake the most damage to win!",
+        )
     override fun occur() {
         return
     }

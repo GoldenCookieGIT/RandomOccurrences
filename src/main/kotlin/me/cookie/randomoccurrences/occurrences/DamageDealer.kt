@@ -13,6 +13,10 @@ class DamageDealer(plugin: JavaPlugin, occurrenceManager: OccurrenceManager):
         get() = "damage-dealer"
     override val friendlyName: String
         get() = "Damage Dealer"
+    override val description: List<String>
+        get() = listOf(
+            "#4d4d4dDeal the most damage to win!",
+        )
 
     override fun occur() {
         return

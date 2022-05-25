@@ -12,7 +12,10 @@ class Lumberjack(plugin: JavaPlugin, occurrenceManager: OccurrenceManager):
         get() = "lumberjack"
     override val friendlyName: String
         get() = "Lumberjack"
-
+    override val description: List<String>
+        get() = listOf(
+            "#4d4d4dChop down the most logs to win!",
+        )
     override fun occur() {
         return
     }

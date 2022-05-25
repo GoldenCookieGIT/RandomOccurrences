@@ -10,22 +10,29 @@ import java.util.*
 abstract class Occurrence(val plugin: JavaPlugin, val occurrenceManager: OccurrenceManager) {
     abstract val configName: String
     abstract val friendlyName: String
-
+    abstract val description: List<String>
     abstract fun occur() // start logic, occurrence specific
     abstract fun cleanup() // cleanup logic, occurrence specific
 
     val playerScore = mutableMapOf<UUID, Int?>()
     val isEnabled = plugin.config.getBoolean("occurrences.$configName.enabled")
-    val spaces = 13 - friendlyName.length
+    // val spaces = 13 - friendlyName.length
     /* length in minutes of this occurrence */
     private val time: Long = plugin.config.getInt("occurrences.$configName.time").toLong() * 1200 /* from minutes to ticks */
     val rewardMap: Map<Int /* leaderboard place */, Array<ItemStack> /* rewards to give */> = occurrenceManager.getRewards(configName)
 
     fun start() {
         occurrenceManager.currentOccurrence = this
-        Bukkit.getServer().onlinePlayers.forEach {
-            it.sendMessage("started $configName")
+        Bukkit.getServer().onlinePlayers.forEach { player ->
+            player.sendMessage("#4a4a4a--=-=-=-=-=-=-=-=-=-=-=-=-=-=-=--".formatHexColors())
+            player.sendMessage("       #07f543$friendlyName #808080has started".formatHexColors())
+            description.forEach {
+                player.sendMessage("       #808080$it".formatHexColors())
+            }
+            player.sendMessage("")
+            player.sendMessage("#4a4a4a--=-=-=-=-=-=-=-=-=-=-=-=-=-=-=--".formatHexColors())
         }
+
         startTimer()
         occur()
     }
@@ -40,9 +47,8 @@ abstract class Occurrence(val plugin: JavaPlugin, val occurrenceManager: Occurre
             val player = Bukkit.getPlayer(uuid) ?: return@forEach
             if(rewardMap.containsKey(place)) {
                 player.inventory.addItem(*rewardMap[place]!!)
-                player.sendMessage("You have won the $configName occurrence with score $score!")
             }else if(score != 0 && true /* TODO: check for if participation awards are enabled */){
-                player.sendMessage("You got a participation award!")
+                // give participation awards
             }
 
             val first = try {
@@ -88,9 +94,6 @@ abstract class Occurrence(val plugin: JavaPlugin, val occurrenceManager: Occurre
             player.sendMessage("#4a4a4a--=-=-=-=-=-=-=-=-=-=-=-=-=-=-=--".formatHexColors())
         }
 
-        Bukkit.getServer().onlinePlayers.forEach {
-            it.sendMessage("ended $configName")
-        }
         cleanup()
         playerScore.clear()
         occurrenceManager.currentOccurrence = null

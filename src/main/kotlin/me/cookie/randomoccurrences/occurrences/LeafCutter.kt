@@ -12,7 +12,10 @@ class LeafCutter(plugin: JavaPlugin, occurrenceManager: OccurrenceManager):
         get() = "leaf-cutter"
     override val friendlyName: String
         get() = "Leaf Cutter"
-
+    override val description: List<String>
+        get() = listOf(
+            "#4d4d4dBreak the most leaves to win!",
+        )
     override fun occur() {
         return
     }
