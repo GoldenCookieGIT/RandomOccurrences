@@ -18,7 +18,7 @@ occurrences:
 
   fishing-pros:
     enabled: true
-    time: 8
+    time: 1
     rewards:
       1:
         - CoolItem
