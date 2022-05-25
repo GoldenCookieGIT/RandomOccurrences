@@ -1,6 +1,5 @@
 package me.cookie.randomoccurrences
 
-import org.bukkit.ChatColor
 import org.bukkit.Material
 import org.bukkit.enchantments.Enchantment
 import org.bukkit.inventory.ItemStack
@@ -85,12 +84,9 @@ class OccurrenceManager(val plugin: JavaPlugin) {
         configItems.getKeys(false).forEach { configItem ->
             val material = Material.valueOf(config.getString("items.$configItem.material", "DIRT")!!)
             val amount = config.getInt("items.$configItem.amount", 1)
-            val itemName = ChatColor.translateAlternateColorCodes(
-                '&',
-                config.getString("items.$configItem.item-name", "&cUnknown")!!
-            )
+            val itemName = config.getString("items.$configItem.item-name", "&cUnknown")!!.formatHexColors()
             val lore = config.getStringList("items.$configItem.lore").stream().map {
-                ChatColor.translateAlternateColorCodes('&', it)
+                it.formatHexColors()
             }.toList()
 
 
