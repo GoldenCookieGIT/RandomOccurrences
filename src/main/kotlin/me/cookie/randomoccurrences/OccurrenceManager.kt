@@ -84,7 +84,7 @@ class OccurrenceManager(val plugin: JavaPlugin) {
         configItems.getKeys(false).forEach { configItem ->
             val material = Material.valueOf(config.getString("items.$configItem.material", "DIRT")!!)
             val amount = config.getInt("items.$configItem.amount", 1)
-            val itemName = config.getString("items.$configItem.item-name", "&cUnknown")!!.formatHexColors()
+            val itemName = config.getString("items.$configItem.item-name", "#ff0000Unknown")!!.formatHexColors()
             val lore = config.getStringList("items.$configItem.lore").stream().map {
                 it.formatHexColors()
             }.toList()
