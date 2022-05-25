@@ -16,6 +16,7 @@ abstract class Occurrence(val plugin: JavaPlugin, val occurrenceManager: Occurre
 
     val playerScore = mutableMapOf<UUID, Int?>()
     val isEnabled = plugin.config.getBoolean("occurrences.$configName.enabled")
+    val giveParticipationAwards = plugin.config.getStringList("occurrences.$configName.participation-awards").isNotEmpty()
     // val spaces = 13 - friendlyName.length
     /* length in minutes of this occurrence */
     private val time: Long = plugin.config.getInt("occurrences.$configName.time").toLong() * 1200 /* from minutes to ticks */
@@ -46,9 +47,22 @@ abstract class Occurrence(val plugin: JavaPlugin, val occurrenceManager: Occurre
             place++
             val player = Bukkit.getPlayer(uuid) ?: return@forEach
             if(rewardMap.containsKey(place)) {
-                player.inventory.addItem(*rewardMap[place]!!)
-            }else if(score != 0 && true /* TODO: check for if participation awards are enabled */){
-                // give participation awards
+                rewardMap[place]!!.forEach {
+                    if(player.inventory.size == 36){
+                        player.world.dropItem(player.location, it)
+                    }else{
+                        player.inventory.addItem(it)
+                    }
+
+                }
+            }else if(score != 0 && giveParticipationAwards){
+                plugin.config.getStringList("occurrences.$configName.participation-awards").forEach {
+                    if(player.inventory.size == 36){
+                        player.world.dropItem(player.location, OccurrenceManager.items[it]!!)
+                    }else{
+                        player.inventory.addItem(OccurrenceManager.items[it]!!)
+                    }
+                }
             }
 
             val first = try {
