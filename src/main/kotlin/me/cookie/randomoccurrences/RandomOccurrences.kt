@@ -1,6 +1,7 @@
 package me.cookie.randomoccurrences
 
 import me.cookie.randomoccurrences.listeners.*
+import org.bstats.bukkit.Metrics
 import org.bukkit.event.Listener
 import org.bukkit.plugin.java.JavaPlugin
 
@@ -8,6 +9,9 @@ class RandomOccurrences: JavaPlugin(), Listener {
     lateinit var occurrenceManager: OccurrenceManager
 
     override fun onEnable() {
+        val pluginId = 15297
+        val metrics = Metrics(this, pluginId)
+
         // Enable logic
         occurrenceManager = OccurrenceManager(this)
         saveDefaultConfig()
