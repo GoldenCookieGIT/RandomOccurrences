@@ -27,7 +27,7 @@ abstract class Occurrence(val plugin: JavaPlugin, val occurrenceManager: Occurre
             player.sendMessage("#4a4a4a--=-=-=-=-=-=-=-=-=-=-=-=-=-=-=--".formatHexColors())
             player.sendMessage("       #07f543$friendlyName #808080has started".formatHexColors())
             description.forEach {
-                player.sendMessage("       #808080$it".formatHexColors())
+                player.sendMessage("    #808080$it".formatHexColors())
             }
             player.sendMessage("")
             player.sendMessage("#4a4a4a--=-=-=-=-=-=-=-=-=-=-=-=-=-=-=--".formatHexColors())
