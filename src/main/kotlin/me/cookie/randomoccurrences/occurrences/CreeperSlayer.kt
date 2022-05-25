@@ -13,6 +13,8 @@ class CreeperSlayer(plugin: JavaPlugin, occurrenceManager: OccurrenceManager):
 
     override val configName: String
         get() = "creeper-slayer"
+    override val friendlyName: String
+        get() = "Creeper Slayer"
 
     override fun occur() {
         Bukkit.getServer().onlinePlayers.stream().forEach { it.sendMessage("YAY!") }

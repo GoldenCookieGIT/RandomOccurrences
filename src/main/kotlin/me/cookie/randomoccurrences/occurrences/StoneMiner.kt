@@ -11,6 +11,8 @@ class StoneMiner(plugin: JavaPlugin, occurrenceManager: OccurrenceManager):
     Occurrence(plugin, occurrenceManager), BlockBreakOccurence {
     override val configName: String
         get() = "stone-miner"
+    override val friendlyName: String
+        get() = "Stone Miner"
 
     override fun occur() {
         return
