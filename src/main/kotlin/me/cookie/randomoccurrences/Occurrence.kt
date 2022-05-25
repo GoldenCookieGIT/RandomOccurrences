@@ -1,7 +1,6 @@
 package me.cookie.randomoccurrences
 
 import org.bukkit.Bukkit
-import org.bukkit.ChatColor
 import org.bukkit.entity.Player
 import org.bukkit.inventory.ItemStack
 import org.bukkit.plugin.java.JavaPlugin
@@ -44,8 +43,6 @@ abstract class Occurrence(val plugin: JavaPlugin, val occurrenceManager: Occurre
                 player.sendMessage("You have won the $configName occurrence with score $score!")
             }else if(score != 0 && true /* TODO: check for if participation awards are enabled */){
                 player.sendMessage("You got a participation award!")
-            }else{
-                player.sendMessage("You did not participate in the occurrence")
             }
 
             val first = try {
@@ -81,14 +78,14 @@ abstract class Occurrence(val plugin: JavaPlugin, val occurrenceManager: Occurre
                 0
             }
 
-            player.sendMessage("${ChatColor.GOLD}-============================-")
-            player.sendMessage("$friendlyName has ended")
+            player.sendMessage("#4a4a4a--=-=-=-=-=-=-=-=-=-=-=-=-=-=-=--".formatHexColors())
+            player.sendMessage("       #07f543$friendlyName #808080has ended".formatHexColors())
             player.sendMessage("")
-            player.sendMessage("1. $first - $firstScore")
-            player.sendMessage("2. $second - $secondScore")
-            player.sendMessage("3. $third - $thirdScore")
+            player.sendMessage("#f0c711 1#b5b5b5. #f0c711$first#b5b5b5 - #ea00ff$firstScore".formatHexColors())
+            player.sendMessage("#b5b5b5 2#b5b5b5. #b5b5b5$second#b5b5b5 - #ea00ff$secondScore".formatHexColors())
+            player.sendMessage("#CD7F32 3#b5b5b5. #CD7F32$third#b5b5b5 - #ea00ff$thirdScore".formatHexColors())
             player.sendMessage("")
-            player.sendMessage("${ChatColor.GOLD}-============================-")
+            player.sendMessage("#4a4a4a--=-=-=-=-=-=-=-=-=-=-=-=-=-=-=--".formatHexColors())
         }
 
         Bukkit.getServer().onlinePlayers.forEach {
