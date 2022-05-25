@@ -16,6 +16,19 @@ occurrences:
     participation-awards: # Given if player participated in occurrence but didn't get a reward for being one of the winners
       - MehItem
 
+  damage-dealer:
+    enabled: true
+    time: 1
+    rewards:
+      1:
+        - CoolItem
+      2:
+        - CoolItem
+      3:
+        - CoolItem
+    participation-awards:
+      - MehItem
+
   fishing-pros:
     enabled: true
     time: 1
@@ -30,6 +43,32 @@ occurrences:
       - MehItem
 
   gold-miner:
+    enabled: true
+    time: 1
+    rewards:
+      1:
+        - CoolItem
+      2:
+        - CoolItem
+      3:
+        - CoolItem
+    participation-awards:
+      - MehItem
+
+  leaf-cutter:
+    enabled: true
+    time: 1
+    rewards:
+      1:
+        - CoolItem
+      2:
+        - CoolItem
+      3:
+        - CoolItem
+    participation-awards:
+      - MehItem
+
+  lumberjack:
     enabled: true
     time: 1
     rewards:

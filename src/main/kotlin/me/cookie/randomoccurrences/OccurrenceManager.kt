@@ -8,7 +8,7 @@ import org.bukkit.plugin.java.JavaPlugin
 import org.bukkit.scheduler.BukkitRunnable
 import org.reflections.Reflections
 
-class OccurrenceManager(private val plugin: JavaPlugin) {
+class OccurrenceManager(val plugin: JavaPlugin) {
 
     companion object {
         val occurrences = mutableListOf<Occurrence>()
