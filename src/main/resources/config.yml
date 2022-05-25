@@ -2,7 +2,7 @@ down-time: 1 # time in minutes between occurrences (starts timer after last occu
 scoreboard: false # show scoreboard, doesn't do anything yet
 # Do not modify the names of the occurrences, only change enabled to true or false to enable/disable them
 occurrences:
-  stone-miner:
+  creeper-slayer:
     enabled: true # if the occurrence is enabled or not.
     time: 1 # in minutes how long the occurrence lasts.
     rewards:
@@ -16,7 +16,7 @@ occurrences:
     participation-awards: # Given if player participated in occurrence but didn't get a reward for being one of the winners
       - MehItem
 
-  gold-miner:
+  fishing-pros:
     enabled: true
     time: 8
     rewards:
@@ -29,7 +29,46 @@ occurrences:
     participation-awards:
       - MehItem
 
-  creeper-slayer:
+  gold-miner:
+    enabled: true
+    time: 1
+    rewards:
+      1:
+        - CoolItem
+      2:
+        - CoolItem
+      3:
+        - CoolItem
+    participation-awards:
+      - MehItem
+
+  masochist:
+    enabled: true
+    time: 1
+    rewards:
+      1:
+        - CoolItem
+      2:
+        - CoolItem
+      3:
+        - CoolItem
+    participation-awards:
+      - MehItem
+
+  master-builders:
+    enabled: true
+    time: 1
+    rewards:
+      1:
+        - CoolItem
+      2:
+        - CoolItem
+      3:
+        - CoolItem
+    participation-awards:
+      - MehItem
+
+  stone-miner:
     enabled: true
     time: 1
     rewards:
