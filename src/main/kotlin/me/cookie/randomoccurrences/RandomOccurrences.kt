@@ -1,7 +1,6 @@
 package me.cookie.randomoccurrences
 
-import me.cookie.randomoccurrences.listeners.BlockBreak
-import me.cookie.randomoccurrences.listeners.EntityKill
+import me.cookie.randomoccurrences.listeners.*
 import org.bukkit.event.EventHandler
 import org.bukkit.event.Listener
 import org.bukkit.event.player.PlayerJoinEvent
@@ -16,8 +15,13 @@ class RandomOccurrences: JavaPlugin(), Listener {
         occurrenceManager = OccurrenceManager(this)
         saveDefaultConfig()
         server.pluginManager.registerEvents(this, this)
-        server.pluginManager.registerEvents(EntityKill(occurrenceManager), this)
         server.pluginManager.registerEvents(BlockBreak(occurrenceManager), this)
+        server.pluginManager.registerEvents(BlockPlace(occurrenceManager), this)
+        server.pluginManager.registerEvents(EntityDamage(occurrenceManager), this)
+        server.pluginManager.registerEvents(EntityDamageByEntity(occurrenceManager), this)
+        server.pluginManager.registerEvents(EntityKill(occurrenceManager), this)
+        server.pluginManager.registerEvents(PlayerFish(occurrenceManager), this)
+        // server.pluginManager.registerEvents(PlayerMove(occurrenceManager), this)
         return
     }
 
