@@ -1,6 +1,7 @@
 package me.cookie.randomoccurrences
 
 import org.bukkit.Bukkit
+import org.bukkit.Material
 import org.bukkit.entity.Player
 import org.bukkit.inventory.ItemStack
 import org.bukkit.plugin.java.JavaPlugin
@@ -48,7 +49,7 @@ abstract class Occurrence(val plugin: JavaPlugin, val occurrenceManager: Occurre
             val player = Bukkit.getPlayer(uuid) ?: return@forEach
             if(rewardMap.containsKey(place)) {
                 rewardMap[place]!!.forEach {
-                    if(player.inventory.size == 36){
+                    if(player.inventory.contents.filterNotNull().filter {item -> item.type != Material.AIR }.size > 35){
                         player.world.dropItem(player.location, it)
                     }else{
                         player.inventory.addItem(it)
@@ -57,9 +58,10 @@ abstract class Occurrence(val plugin: JavaPlugin, val occurrenceManager: Occurre
                 }
             }else if(score != 0 && giveParticipationAwards){
                 plugin.config.getStringList("occurrences.$configName.participation-awards").forEach {
-                    if(player.inventory.size == 36){
+                    if(player.inventory.contents.filterNotNull().filter {item -> item.type != Material.AIR }.size > 35){
                         player.world.dropItem(player.location, OccurrenceManager.items[it]!!)
                     }else{
+                        println()
                         player.inventory.addItem(OccurrenceManager.items[it]!!)
                     }
                 }
