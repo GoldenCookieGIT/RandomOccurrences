@@ -1,5 +1,8 @@
-down-time: 1 # time in minutes between occurrences (starts timer after last occurrence has ended)
+update-checker: true # Set to false to disable update checker (Notifies players with OP permissions when a new upadate is available)
+
 scoreboard: false # show scoreboard, doesn't do anything yet
+
+down-time: 1 # time in minutes between occurrences (starts timer after last occurrence has ended)
 # Do not modify the names of the occurrences, only change enabled to true or false to enable/disable them
 occurrences:
   creeper-slayer:
