@@ -148,6 +148,7 @@ items:
       - "DAMAGE_ARTHROPODS:3"
   MehItem:
     material: WOODEN_SWORD
+    amount: 1
     item-name: "#383838This is a meh item..."
     lore:
       - "#000000lore line 1"
