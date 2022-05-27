@@ -61,7 +61,6 @@ abstract class Occurrence(val plugin: JavaPlugin, val occurrenceManager: Occurre
                     if(player.inventory.contents.filterNotNull().filter {item -> item.type != Material.AIR }.size > 35){
                         player.world.dropItem(player.location, OccurrenceManager.items[it]!!)
                     }else{
-                        println()
                         player.inventory.addItem(OccurrenceManager.items[it]!!)
                     }
                 }
