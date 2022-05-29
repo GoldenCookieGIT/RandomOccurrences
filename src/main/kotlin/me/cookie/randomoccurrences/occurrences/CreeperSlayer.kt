@@ -3,7 +3,6 @@ package me.cookie.randomoccurrences.occurrences
 import me.cookie.randomoccurrences.Occurrence
 import me.cookie.randomoccurrences.OccurrenceManager
 import me.cookie.randomoccurrences.occurrences.events.EntityKillOccurrence
-import org.bukkit.Bukkit
 import org.bukkit.entity.Creeper
 import org.bukkit.entity.EntityType
 import org.bukkit.event.entity.EntityDeathEvent
@@ -23,7 +22,7 @@ class CreeperSlayer(plugin: JavaPlugin, occurrenceManager: OccurrenceManager):
         )
 
     override fun occur() {
-        Bukkit.getServer().onlinePlayers.stream().forEach { it.sendMessage("YAY!") }
+        return
     }
 
     override fun cleanup() {
