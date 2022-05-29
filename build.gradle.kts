@@ -17,7 +17,7 @@ repositories {
 
 dependencies {
     compileOnly("org.spigotmc:spigot-api:1.18.2-R0.1-SNAPSHOT")
-    implementation("org.jetbrains.kotlin:kotlin-stdlib-jdk8") // Shade Kotlin
+    compileOnly("org.jetbrains.kotlin:kotlin-stdlib-jdk8") // Shade Kotlin
     implementation("org.reflections:reflections:0.10.2") // Shade Reflections
     implementation("org.bstats:bstats-bukkit:3.0.0") // Shade bStats
 }
