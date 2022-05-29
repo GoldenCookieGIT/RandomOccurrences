@@ -1,6 +1,6 @@
 name: RandomOccurrences
 main: me.cookie.randomoccurrences.RandomOccurrences
-version: 1.0.1
+version: 1.1.1
 api-version: 1.13
 libraries:
   - 'org.jetbrains.kotlin:kotlin-stdlib:1.6.0'
