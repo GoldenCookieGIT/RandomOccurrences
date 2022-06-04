@@ -29,6 +29,7 @@ class RandomOccurrences: JavaPlugin(), Listener {
             server.pluginManager.registerEvents(PlayerJoin(this), this)
         }
         if(config.getInt("minimum-players", -1) < 0){
+            logger.severe(" [!!!] The config has been changed! Please update the config file! (a backup of your old config has been made) [!!!] ")
             val file = File(dataFolder, "config.yml")
             file.renameTo(File(dataFolder, "config.old.yml"))
             saveDefaultConfig()
