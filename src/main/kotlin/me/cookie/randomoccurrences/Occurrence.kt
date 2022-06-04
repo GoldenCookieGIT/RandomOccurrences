@@ -1,9 +1,7 @@
 package me.cookie.randomoccurrences
 
 import org.bukkit.Bukkit
-import org.bukkit.Material
 import org.bukkit.entity.Player
-import org.bukkit.inventory.ItemStack
 import org.bukkit.plugin.java.JavaPlugin
 import org.bukkit.scheduler.BukkitRunnable
 import java.util.*
@@ -21,7 +19,7 @@ abstract class Occurrence(val plugin: JavaPlugin, val occurrenceManager: Occurre
     // val spaces = 13 - friendlyName.length
     /* length in minutes of this occurrence */
     private val time: Long = plugin.config.getInt("occurrences.$configName.time").toLong() * 1200 /* from minutes to ticks */
-    val rewardMap: Map<Int /* leaderboard place */, Array<ItemStack> /* rewards to give */> = occurrenceManager.getRewards(configName)
+    val rewardMap: Map<Int /* leaderboard place */, Array<Reward> /* rewards to give */> = occurrenceManager.getRewards(configName)
 
     fun start() {
         occurrenceManager.currentOccurrence = this
@@ -48,56 +46,25 @@ abstract class Occurrence(val plugin: JavaPlugin, val occurrenceManager: Occurre
             place++
             val player = Bukkit.getPlayer(uuid) ?: return@forEach
             if(rewardMap.containsKey(place)) {
-                rewardMap[place]!!.forEach {
-                    if(player.inventory.contents.filterNotNull().filter {item -> item.type != Material.AIR }.size > 35){
-                        player.world.dropItem(player.location, it)
-                    }else{
-                        player.inventory.addItem(it)
-                    }
-
+                rewardMap[place]?.forEach {
+                    it.itemReward?.giveItem(player)
+                    it.commandReward?.performCommand(player)
                 }
             }else if(score != 0 && giveParticipationAwards){
                 plugin.config.getStringList("occurrences.$configName.participation-awards").forEach {
-                    if(player.inventory.contents.filterNotNull().filter {item -> item.type != Material.AIR }.size > 35){
-                        player.world.dropItem(player.location, OccurrenceManager.items[it]!!)
-                    }else{
-                        player.inventory.addItem(OccurrenceManager.items[it]!!)
-                    }
+                    OccurrenceManager.items[it]?.giveItem(player)
+                    OccurrenceManager.commands[it]?.performCommand(player)
                 }
             }
 
-            val first = try {
-                Bukkit.getPlayer(sortedMap.keys.toList()[0])?.name
-            }catch (e: IndexOutOfBoundsException){
-                "Nobody"
-            }
-            val firstScore = try {
-                sortedMap.values.toList()[0] ?: 0
-            }catch (e: IndexOutOfBoundsException){
-                0
-            }
+            val first = sortedMap.keys.toList().getOrNull(0)?.let { Bukkit.getPlayer(it)?.name } ?: "Nobody"
+            val firstScore = sortedMap.values.toList().getOrElse(0) { 0 } ?: 0
 
-            val second = try {
-                Bukkit.getPlayer(sortedMap.keys.toList()[1])?.name
-            }catch (e: IndexOutOfBoundsException){
-                "Nobody"
-            }
-            val secondScore = try {
-                sortedMap.values.toList()[1] ?: 0
-            }catch (e: IndexOutOfBoundsException){
-                0
-            }
+            val second = sortedMap.keys.toList().getOrNull(1)?.let { Bukkit.getPlayer(it)?.name } ?: "Nobody"
+            val secondScore = sortedMap.values.toList().getOrElse(1) { 0 } ?: 0
 
-            val third = try {
-                Bukkit.getPlayer(sortedMap.keys.toList()[2])?.name
-            }catch (e: IndexOutOfBoundsException){
-                "Nobody"
-            }
-            val thirdScore = try {
-                sortedMap.values.toList()[2] ?: 0
-            }catch (e: IndexOutOfBoundsException){
-                0
-            }
+            val third = sortedMap.keys.toList().getOrNull(2)?.let { Bukkit.getPlayer(it)?.name } ?: "Nobody"
+            val thirdScore = sortedMap.values.toList().getOrElse(2) { 0 } ?: 0
 
             player.sendMessage("#4a4a4a--=-=-=-=-=-=-=-=-=-=-=-=-=-=-=--".formatHexColors())
             player.sendMessage("       #07f543$friendlyName #808080has ended".formatHexColors())

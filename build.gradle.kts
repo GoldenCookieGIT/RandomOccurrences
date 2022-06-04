@@ -4,6 +4,7 @@ import org.jetbrains.kotlin.gradle.tasks.KotlinCompile
 plugins {
     kotlin("jvm") version "1.6.20"
     id("com.github.johnrengelman.shadow") version "7.1.2"
+    id("net.minecrell.plugin-yml.bukkit") version "0.5.1"
 }
 
 group = "me.cookie"
@@ -17,9 +18,20 @@ repositories {
 
 dependencies {
     compileOnly("org.spigotmc:spigot-api:1.18.2-R0.1-SNAPSHOT")
-    compileOnly("org.jetbrains.kotlin:kotlin-stdlib-jdk8") // Shade Kotlin
+    compileOnly("org.jetbrains.kotlin:kotlin-stdlib:1.6.0") // Shade Kotlin
     implementation("org.reflections:reflections:0.10.2") // Shade Reflections
     implementation("org.bstats:bstats-bukkit:3.0.0") // Shade bStats
+}
+
+
+bukkit {
+    main = "me.cookie.randomoccurrences.RandomOccurrences"
+    apiVersion = "1.13"
+    libraries = listOf(
+                    "org.jetbrains.kotlin:kotlin-stdlib:1.6.0",
+                )
+    bukkit.version = version
+
 }
 
 tasks.withType<KotlinCompile> {
@@ -27,6 +39,7 @@ tasks.withType<KotlinCompile> {
 }
 tasks.withType<ShadowJar> {
     relocate("org.bstats", "me.cookie.bstats")
+    relocate("org.reflections", "me.cookie.reflections")
     archiveClassifier.set("")
     destinationDirectory.set(File("G:\\coding\\Test Servers\\RandomOccurrences\\plugins"))
 }

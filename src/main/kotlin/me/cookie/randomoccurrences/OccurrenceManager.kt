@@ -11,7 +11,8 @@ class OccurrenceManager(val plugin: JavaPlugin) {
 
     companion object {
         val occurrences = mutableListOf<Occurrence>()
-        val items = mutableMapOf<String, ItemStack>()
+        val items = mutableMapOf<String, ItemReward>()
+        val commands = mutableMapOf<String, CommandReward>()
     }
 
     private val downTime: Long = plugin.config.getInt("down-time").toLong() * 60 /* to seconds */ * 20 /* to ticks */
@@ -19,6 +20,10 @@ class OccurrenceManager(val plugin: JavaPlugin) {
     var currentOccurrence: Occurrence? = null
 
     fun pickOccurrence() {
+        if(occurrences.isEmpty()) {
+            plugin.logger.warning("No occurrences found!")
+            return
+        }
         val randomOccurrence = occurrences.random()
 
         if(!randomOccurrence.isEnabled){ // Pick another occurrence if the current one is disabled
@@ -45,15 +50,16 @@ class OccurrenceManager(val plugin: JavaPlugin) {
         }.runTaskLater(plugin, downTime)
     }
 
-    fun getRewards(configName: String): Map<Int, Array<ItemStack>> {
-        val rewardMap = mutableMapOf<Int, Array<ItemStack>>()
+    fun getRewards(configName: String): Map<Int, Array<Reward>> {
+        val rewardMap = mutableMapOf<Int, Array<Reward>>()
         val configurationSection = plugin.config.getConfigurationSection("occurrences.$configName.rewards") ?: return mapOf()
 
         configurationSection.getKeys(false).forEach { place ->
-            val rewards: Array<ItemStack> = configurationSection.getStringList(place).map {
-                val item = items[it] ?: return@map null
-                item.clone()
-            }.filterNotNull().toTypedArray()
+            val rewards: Array<Reward> = configurationSection.getStringList(place).map {
+                val item = items[it]
+                val command = commands[it]
+                Reward(item, command)
+            }.toTypedArray()
             rewardMap[place.toInt()] = rewards
         }
         return rewardMap
@@ -76,37 +82,53 @@ class OccurrenceManager(val plugin: JavaPlugin) {
 
     private fun compileItems(){
         val config = plugin.config
-        val configItems = config.getConfigurationSection("items")
-        if(configItems == null) {
+        val configRewards = config.getConfigurationSection("rewards")
+        if(configRewards == null) {
             plugin.logger.warning("No items found in config!")
             return
         }
-        configItems.getKeys(false).forEach { configItem ->
-            val material = Material.valueOf(config.getString("items.$configItem.material", "DIRT")!!)
-            val amount = config.getInt("items.$configItem.amount", 1)
-            val itemName = config.getString("items.$configItem.item-name", "#ff0000Unknown")!!.formatHexColors()
-            val lore = config.getStringList("items.$configItem.lore").stream().map {
-                it.formatHexColors()
-            }.toList()
+        configRewards.getKeys(false).forEach { configReward ->
+            println("COMPILING REWARD: $configReward")
+            val configSection = config.getConfigurationSection("rewards.$configReward")!!
+            if(configSection.contains("item", true)) {
+                val itemSection = configSection.getConfigurationSection("item")!!
+                plugin.logger.warning("No items found in config for reward: $configReward")
+                val material = Material.valueOf(itemSection.getString("material", "AIR")!!)
+                val amount = itemSection.getInt("amount", 1)
+                val itemName = itemSection.getString("item-name", "#ff0000Unknown")!!.formatHexColors()
+                val lore = itemSection.getStringList("lore").stream().map {
+                    it.formatHexColors()
+                }.toList()
 
 
-            val item = ItemStack(material, amount)
-            val meta = item.itemMeta!!
-            meta.setDisplayName(itemName)
+                val item = ItemStack(material, amount)
+                val meta = item.itemMeta!!
+                meta.setDisplayName(itemName)
 
-            config.getStringList("items.$configItem.enchantments").forEach enchantmentLoop@{ // add enchants to item
-                val enchantment = Enchantment.getByName(it.split(":")[0]) ?: return@enchantmentLoop
-                meta.addEnchant(
-                    enchantment,
-                    it.split(":")[1].toInt(),
-                    true
-                )
+                config.getStringList("rewards.$configReward.item.enchantments").forEach enchantmentLoop@{ // add enchants to item
+                    val enchantment = Enchantment.getByName(it.split(":")[0]) ?: return@enchantmentLoop
+                    meta.addEnchant(
+                        enchantment,
+                        it.split(":")[1].toInt(),
+                        true
+                    )
+                }
+
+                meta.lore = lore ?: listOf<String>()
+                item.itemMeta = meta
+
+                items[configReward] = ItemReward(item)
             }
-
-            meta.lore = lore ?: listOf<String>()
-            item.itemMeta = meta
-
-            items[configItem] = item
+            if(config.contains("rewards.$configReward.command", true)) {
+                val commandSection = configSection.getConfigurationSection("command")!!
+                val command = config.getString("run", "/help")!!.apply {
+                    if(this[0] != '/')
+                        this.padStart(1, '/')
+                }
+                val executor = config.getString("executor", "PLAYER")!!.uppercase()
+                val ignorePerms = config.getBoolean("ignore-permissions", false)
+                commands[configReward] = CommandReward(command, Executor.valueOf(executor), ignorePerms)
+            }
         }
     }
 }
