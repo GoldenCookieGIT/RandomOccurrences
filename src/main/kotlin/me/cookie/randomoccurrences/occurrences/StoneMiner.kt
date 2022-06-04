@@ -29,7 +29,6 @@ class StoneMiner(plugin: JavaPlugin, occurrenceManager: OccurrenceManager):
         val block = event.block
         val player = event.player
         if(block.type != Material.STONE) return
-        player.sendMessage("You mined a stone!")
         addScore(player, 1)
     }
 
