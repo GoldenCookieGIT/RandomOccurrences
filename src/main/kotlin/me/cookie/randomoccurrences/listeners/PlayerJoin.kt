@@ -9,8 +9,8 @@ import org.bukkit.event.Listener
 import org.bukkit.event.player.PlayerJoinEvent
 
 class PlayerJoin(private val randomOccurrences: RandomOccurrences): Listener {
-    val versionCheck = randomOccurrences.config.getString("update-checker")?.uppercase()
-    val version = randomOccurrences.description.version
+    private val versionCheck = randomOccurrences.config.getString("update-checker")?.uppercase()
+    private val version = randomOccurrences.description.version
     @EventHandler
     fun onPlayerJoin(event: PlayerJoinEvent){
         val player = event.player
