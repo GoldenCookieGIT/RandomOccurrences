@@ -13,7 +13,14 @@ class RandomOccurrences: JavaPlugin(), Listener {
         val pluginId = 15297
         val metrics = Metrics(this, pluginId)
 
-        // Enable logic
+        if(config.getInt("minimum-players", -1) < 0){
+            logger.severe(" [!!!] The config has been changed! Please update the config file! (a backup of your old config has been made) [!!!] ")
+            val file = File(dataFolder, "config.yml")
+            file.renameTo(File(dataFolder, "config.old.yml"))
+            saveDefaultConfig()
+            reloadConfig()
+        }
+
         occurrenceManager = OccurrenceManager(this)
         saveDefaultConfig()
         server.pluginManager.registerEvents(this, this)
@@ -27,12 +34,6 @@ class RandomOccurrences: JavaPlugin(), Listener {
         server.pluginManager.registerEvents(PlayerMove(occurrenceManager), this)
         if(config.getBoolean("update-checker")){
             server.pluginManager.registerEvents(PlayerJoin(this), this)
-        }
-        if(config.getInt("minimum-players", -1) < 0){
-            logger.severe(" [!!!] The config has been changed! Please update the config file! (a backup of your old config has been made) [!!!] ")
-            val file = File(dataFolder, "config.yml")
-            file.renameTo(File(dataFolder, "config.old.yml"))
-            saveDefaultConfig()
         }
     }
 
