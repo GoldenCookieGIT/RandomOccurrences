@@ -46,9 +46,9 @@ abstract class Occurrence(val plugin: JavaPlugin, val occurrenceManager: Occurre
             place++
             val player = Bukkit.getPlayer(uuid) ?: return@forEach
             if(rewardMap.containsKey(place)) {
-                rewardMap[place]?.forEach {
-                    it.itemReward?.giveItem(player)
-                    it.commandReward?.performCommand(player)
+                rewardMap[place-1]!!.forEach {
+                    it.itemReward.let { item -> item?.giveItem(player) }
+                    it.commandReward.let { command -> command?.performCommand(player) }
                 }
             }else if(score != 0 && giveParticipationAwards){
                 plugin.config.getStringList("occurrences.$configName.participation-awards").forEach {

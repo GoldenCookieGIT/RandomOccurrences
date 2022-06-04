@@ -46,6 +46,7 @@ class OccurrenceManager(val plugin: JavaPlugin) {
                 if(currentOccurrence == null){ // only pick an occurrence if there is none active.
                     pickOccurrence()
                 }
+
             }
         }.runTaskLater(plugin, downTime)
     }
@@ -60,7 +61,9 @@ class OccurrenceManager(val plugin: JavaPlugin) {
                 val command = commands[it]
                 Reward(item, command)
             }.toTypedArray()
-            rewardMap[place.toInt()] = rewards
+            rewardMap[place.toInt()] = rewards.clone().toMutableList().apply {
+                addAll(rewardMap[place.toInt()] ?: arrayOf())
+            }.toTypedArray()
         }
         return rewardMap
     }
@@ -88,8 +91,8 @@ class OccurrenceManager(val plugin: JavaPlugin) {
             return
         }
         configRewards.getKeys(false).forEach { configReward ->
-            println("COMPILING REWARD: $configReward")
-            val configSection = config.getConfigurationSection("rewards.$configReward")!!
+            val configSection = configRewards.getConfigurationSection(configReward)!!
+
             if(configSection.contains("item", true)) {
                 val itemSection = configSection.getConfigurationSection("item")!!
                 plugin.logger.warning("No items found in config for reward: $configReward")
@@ -100,12 +103,11 @@ class OccurrenceManager(val plugin: JavaPlugin) {
                     it.formatHexColors()
                 }.toList()
 
-
                 val item = ItemStack(material, amount)
                 val meta = item.itemMeta!!
                 meta.setDisplayName(itemName)
 
-                config.getStringList("rewards.$configReward.item.enchantments").forEach enchantmentLoop@{ // add enchants to item
+                configSection.getStringList("item.enchantments").forEach enchantmentLoop@{ // add enchants to item
                     val enchantment = Enchantment.getByName(it.split(":")[0]) ?: return@enchantmentLoop
                     meta.addEnchant(
                         enchantment,
@@ -119,16 +121,18 @@ class OccurrenceManager(val plugin: JavaPlugin) {
 
                 items[configReward] = ItemReward(item)
             }
-            if(config.contains("rewards.$configReward.command", true)) {
+
+            if(configSection.contains("command", true)) {
                 val commandSection = configSection.getConfigurationSection("command")!!
-                val command = config.getString("run", "/help")!!.apply {
+                val command = commandSection.getString("run", "/help")!!.apply {
                     if(this[0] != '/')
                         this.padStart(1, '/')
                 }
-                val executor = config.getString("executor", "PLAYER")!!.uppercase()
-                val ignorePerms = config.getBoolean("ignore-permissions", false)
+                val executor = commandSection.getString("executor", "PLAYER")!!.uppercase()
+                val ignorePerms = commandSection.getBoolean("ignore-permissions", false)
                 commands[configReward] = CommandReward(command, Executor.valueOf(executor), ignorePerms)
             }
+
         }
     }
 }
