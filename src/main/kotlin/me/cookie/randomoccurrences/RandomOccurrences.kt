@@ -4,6 +4,7 @@ import me.cookie.randomoccurrences.listeners.*
 import org.bstats.bukkit.Metrics
 import org.bukkit.event.Listener
 import org.bukkit.plugin.java.JavaPlugin
+import java.io.File
 
 class RandomOccurrences: JavaPlugin(), Listener {
     lateinit var occurrenceManager: OccurrenceManager
@@ -27,7 +28,11 @@ class RandomOccurrences: JavaPlugin(), Listener {
         if(config.getBoolean("update-checker")){
             server.pluginManager.registerEvents(PlayerJoin(this), this)
         }
-        return
+        if(config.getInt("minimum-players", -1) < 0){
+            val file = File(dataFolder, "config.yml")
+            file.renameTo(File(dataFolder, "config.old.yml"))
+            saveDefaultConfig()
+        }
     }
 
     override fun onDisable() {
