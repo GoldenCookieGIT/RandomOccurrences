@@ -1,5 +1,6 @@
 package me.cookie.randomoccurrences
 
+import org.bukkit.Bukkit
 import org.bukkit.Material
 import org.bukkit.enchantments.Enchantment
 import org.bukkit.inventory.ItemStack
@@ -43,9 +44,10 @@ class OccurrenceManager(val plugin: JavaPlugin) {
     fun startDowntime(){
         object: BukkitRunnable() {
             override fun run() {
-                if(currentOccurrence == null){ // only pick an occurrence if there is none active.
+                if(currentOccurrence == null && Bukkit.getOnlinePlayers().size >= plugin.config.getInt("minimum-players")) // only pick an occurrence if there is none active, and there's enough players online)
                     pickOccurrence()
-                }
+                else
+                    startDowntime()
 
             }
         }.runTaskLater(plugin, downTime)
