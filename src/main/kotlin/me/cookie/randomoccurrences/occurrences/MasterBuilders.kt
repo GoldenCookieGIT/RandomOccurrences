@@ -8,14 +8,12 @@ import org.bukkit.plugin.java.JavaPlugin
 
 class MasterBuilders(plugin: JavaPlugin, occurrenceManager: OccurrenceManager):
     Occurrence(plugin, occurrenceManager), BlockPlaceOccurrence {
-    override val configName: String
-        get() = "master-builders"
-    override val friendlyName: String
-        get() = "Master Builders"
-    override val description: List<String>
-        get() = listOf(
-            "#4d4d4dPlace the most blocks to win!",
-        )
+    override val configName: String = "master-builders"
+    override val friendlyName: String = "Master Builders"
+    override val description: List<String> = listOf(
+        "#4d4d4dPlace the most blocks to win!",
+    )
+
     override fun occur() {
         return
     }

@@ -9,14 +9,12 @@ import org.bukkit.plugin.java.JavaPlugin
 
 class Masochist(plugin: JavaPlugin, occurrenceManager: OccurrenceManager):
     Occurrence(plugin, occurrenceManager), EntityDamageOccurrence {
-    override val configName: String
-        get() = "masochist"
-    override val friendlyName: String
-        get() = "Masochist"
-    override val description: List<String>
-        get() = listOf(
-            "#4d4d4dTake the most damage to win!",
-        )
+    override val configName: String = "masochist"
+    override val friendlyName: String = "Masochist"
+    override val description: List<String> = listOf(
+        "#4d4d4dTake the most damage to win!",
+    )
+
     override fun occur() {
         return
     }

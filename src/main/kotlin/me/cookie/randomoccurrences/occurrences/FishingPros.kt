@@ -9,14 +9,11 @@ import org.bukkit.plugin.java.JavaPlugin
 
 class FishingPros(plugin: JavaPlugin, occurrenceManager: OccurrenceManager):
     Occurrence(plugin, occurrenceManager), PlayerFishOccurrence{
-    override val configName: String
-        get() = "fishing-pros"
-    override val friendlyName: String
-        get() = "Fishing Pros"
-    override val description: List<String>
-        get() = listOf(
-            "#4d4d4dFish up the most items to win!",
-        )
+    override val configName: String = "fishing-pros"
+    override val friendlyName: String = "Fishing Pros"
+    override val description: List<String> = listOf(
+        "#4d4d4dFish up the most items to win!",
+    )
 
     override fun occur() {
         return

@@ -8,14 +8,12 @@ import org.bukkit.plugin.java.JavaPlugin
 
 class Jumper(plugin: JavaPlugin, occurrenceManager: OccurrenceManager):
     Occurrence(plugin, occurrenceManager), PlayerJumpOccurrence{
-    override val configName: String
-        get() = "jumper"
-    override val friendlyName: String
-        get() = "Jumper"
-    override val description: List<String>
-        get() = listOf(
-            "#4d4d4dJump the most times to win!",
-        )
+    override val configName: String = "jumper"
+    override val friendlyName: String = "Jumper"
+    override val description: List<String> = listOf(
+        "#4d4d4dJump the most times to win!",
+    )
+
     override fun occur() {
         return
     }

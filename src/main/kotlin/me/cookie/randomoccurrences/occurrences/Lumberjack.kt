@@ -8,14 +8,12 @@ import org.bukkit.plugin.java.JavaPlugin
 
 class Lumberjack(plugin: JavaPlugin, occurrenceManager: OccurrenceManager):
     Occurrence(plugin, occurrenceManager), BlockBreakOccurence {
-    override val configName: String
-        get() = "lumberjack"
-    override val friendlyName: String
-        get() = "Lumberjack"
-    override val description: List<String>
-        get() = listOf(
-            "#4d4d4dChop down the most logs to win!",
-        )
+    override val configName: String = "lumberjack"
+    override val friendlyName: String = "Lumberjack"
+    override val description: List<String> = listOf(
+        "#4d4d4dChop down the most logs to win!",
+    )
+
     override fun occur() {
         return
     }
