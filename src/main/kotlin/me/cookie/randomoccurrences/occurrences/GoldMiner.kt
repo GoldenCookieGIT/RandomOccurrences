@@ -9,14 +9,12 @@ import org.bukkit.plugin.java.JavaPlugin
 
 class GoldMiner(plugin: JavaPlugin, occurrenceManager: OccurrenceManager):
     Occurrence(plugin, occurrenceManager), BlockBreakOccurence {
-    override val configName: String
-        get() = "gold-miner"
-    override val friendlyName: String
-        get() = "Gold Miner"
-    override val description: List<String>
-        get() = listOf(
-            "#4d4d4dMine the most gold to win!",
-        )
+    override val configName: String = "gold-miner"
+    override val friendlyName: String = "Gold Miner"
+    override val description: List<String> = listOf(
+        "#4d4d4dMine the most gold to win!",
+    )
+
     override fun occur() {
         return
     }

@@ -9,14 +9,11 @@ import org.bukkit.plugin.java.JavaPlugin
 
 class DamageDealer(plugin: JavaPlugin, occurrenceManager: OccurrenceManager):
     Occurrence(plugin, occurrenceManager), EntityDamageEntityOccurrence {
-    override val configName: String
-        get() = "damage-dealer"
-    override val friendlyName: String
-        get() = "Damage Dealer"
-    override val description: List<String>
-        get() = listOf(
-            "#4d4d4dDeal the most damage to win!",
-        )
+    override val configName: String = "damage-dealer"
+    override val friendlyName: String = "Damage Dealer"
+    override val description: List<String> = listOf(
+        "#4d4d4dDeal the most damage to win!",
+    )
 
     override fun occur() {
         return

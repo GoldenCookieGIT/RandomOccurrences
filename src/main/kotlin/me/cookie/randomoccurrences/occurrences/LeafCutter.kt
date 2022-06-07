@@ -8,14 +8,12 @@ import org.bukkit.plugin.java.JavaPlugin
 
 class LeafCutter(plugin: JavaPlugin, occurrenceManager: OccurrenceManager):
     Occurrence(plugin, occurrenceManager), BlockBreakOccurence{
-    override val configName: String
-        get() = "leaf-cutter"
-    override val friendlyName: String
-        get() = "Leaf Cutter"
-    override val description: List<String>
-        get() = listOf(
-            "#4d4d4dBreak the most leaves to win!",
-        )
+    override val configName: String = "leaf-cutter"
+    override val friendlyName: String = "Leaf Cutter"
+    override val description: List<String> = listOf(
+        "#4d4d4dBreak the most leaves to win!",
+    )
+
     override fun occur() {
         return
     }

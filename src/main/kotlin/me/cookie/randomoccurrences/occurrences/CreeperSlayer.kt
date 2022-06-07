@@ -11,15 +11,12 @@ import org.bukkit.plugin.java.JavaPlugin
 class CreeperSlayer(plugin: JavaPlugin, occurrenceManager: OccurrenceManager):
     Occurrence(plugin, occurrenceManager), EntityKillOccurrence {
 
-    override val configName: String
-        get() = "creeper-slayer"
-    override val friendlyName: String
-        get() = "Creeper Slayer"
-    override val description: List<String>
-        get() = listOf(
-            "#4d4d4dKill the most creepers to win!",
-            "#4d4d4dCreepers are worth 1 point while charged ones are 10!"
-        )
+    override val configName: String = "creeper-slayer"
+    override val friendlyName: String = "Creeper Slayer"
+    override val description: List<String> = listOf(
+        "#4d4d4dKill the most creepers to win!",
+        "#4d4d4dCreepers are worth 1 point while charged ones are 10!"
+    )
 
     override fun occur() {
         return
