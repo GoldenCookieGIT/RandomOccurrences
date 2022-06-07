@@ -7,7 +7,7 @@ import org.bukkit.event.block.BlockBreakEvent
 import org.bukkit.plugin.java.JavaPlugin
 
 class LeafCutter(plugin: JavaPlugin, occurrenceManager: OccurrenceManager):
-    Occurrence(plugin, occurrenceManager), BlockBreakOccurence{
+    Occurrence(plugin, occurrenceManager), BlockBreakOccurence {
     override val configName: String = "leaf-cutter"
     override val friendlyName: String = "Leaf Cutter"
     override val description: List<String> = listOf(

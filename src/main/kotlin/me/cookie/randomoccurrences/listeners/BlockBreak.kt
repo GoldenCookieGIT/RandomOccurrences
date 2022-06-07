@@ -8,7 +8,7 @@ import org.bukkit.event.block.BlockBreakEvent
 
 class BlockBreak(private val occurrenceManager: OccurrenceManager): Listener {
     @EventHandler
-    fun onBlockBreak(event: BlockBreakEvent){
+    fun onBlockBreak(event: BlockBreakEvent) {
         val occurrence = occurrenceManager.currentOccurrence ?: return
         if (occurrence is BlockBreakOccurence) {
             occurrence.onBlockBreak(event)

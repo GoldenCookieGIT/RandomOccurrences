@@ -8,9 +8,9 @@ import org.bukkit.event.player.PlayerFishEvent
 
 class PlayerFish(private val occurrenceManager: OccurrenceManager): Listener {
     @EventHandler
-    fun onPlayerFish(event: PlayerFishEvent){
+    fun onPlayerFish(event: PlayerFishEvent) {
         val currentOccurrence = occurrenceManager.currentOccurrence
-        if (currentOccurrence is PlayerFishOccurrence){
+        if (currentOccurrence is PlayerFishOccurrence) {
             currentOccurrence.onPlayerFish(event)
         }
     }

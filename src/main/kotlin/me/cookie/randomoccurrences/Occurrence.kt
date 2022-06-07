@@ -37,7 +37,7 @@ abstract class Occurrence(val plugin: JavaPlugin, val occurrenceManager: Occurre
         occur()
     }
 
-    fun end(){
+    fun end() {
         // Give rewards
         // Send victory message
         val sortedMap = playerScore.toList().sortedBy { (_, value) -> value }.reversed().toMap()
@@ -82,14 +82,14 @@ abstract class Occurrence(val plugin: JavaPlugin, val occurrenceManager: Occurre
         occurrenceManager.startDowntime()
     }
 
-    fun addScore(player: Player, score: Int){
+    fun addScore(player: Player, score: Int) {
         if (!playerScore.containsKey(player.uniqueId)){
             playerScore[player.uniqueId] = 0
         }
         playerScore[player.uniqueId] = playerScore[player.uniqueId]!! + score
     }
 
-    private fun startTimer(){
+    private fun startTimer() {
         object: BukkitRunnable() {
             override fun run() {
                 end()

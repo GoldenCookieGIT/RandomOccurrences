@@ -27,7 +27,7 @@ class OccurrenceManager(val plugin: JavaPlugin) {
         }
         val randomOccurrence = occurrences.random()
 
-        if (!randomOccurrence.isEnabled){ // Pick another occurrence if the current one is disabled
+        if (!randomOccurrence.isEnabled) { // Pick another occurrence if the current one is disabled
             pickOccurrence()
             return
         }
@@ -70,7 +70,7 @@ class OccurrenceManager(val plugin: JavaPlugin) {
         return rewardMap
     }
 
-    private fun registerOccurrences(){
+    private fun registerOccurrences() {
         val reflections = Reflections("me.cookie.randomoccurrences.occurrences")
         val occurrenceClasses = reflections.getSubTypesOf(Occurrence::class.java)
 
@@ -79,7 +79,7 @@ class OccurrenceManager(val plugin: JavaPlugin) {
         }
     }
 
-    fun registerOccurrence(occurrenceClass: Class<out Occurrence>){ // TODO: Make this more generic (rework this to allow adding custom occurrences via api or smthn)
+    fun registerOccurrence(occurrenceClass: Class<out Occurrence>) { // TODO: Make this more generic (rework this to allow adding custom occurrences via api or smthn)
         val occurrence = occurrenceClass.getDeclaredConstructor(JavaPlugin::class.java, this::class.java).newInstance(plugin, this@OccurrenceManager)
         plugin.logger.info("Registered occurrence: ${occurrence.configName}")
         occurrences.add(occurrence)

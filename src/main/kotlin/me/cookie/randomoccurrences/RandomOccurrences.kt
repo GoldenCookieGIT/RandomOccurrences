@@ -12,7 +12,7 @@ class RandomOccurrences: JavaPlugin() {
         val pluginId = 15297
         val metrics = Metrics(this, pluginId)
 
-        if (config.getInt("minimum-players", -1) < 0){
+        if (config.getInt("minimum-players", -1) < 0) {
             logger.severe(" [!!!] The config has been changed! Please update the config file! (a backup of your old config has been made) [!!!] ")
             val file = File(dataFolder, "config.yml")
             file.renameTo(File(dataFolder, "config.old.yml"))

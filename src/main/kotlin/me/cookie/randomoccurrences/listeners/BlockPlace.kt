@@ -9,10 +9,10 @@ import org.bukkit.event.block.BlockPlaceEvent
 class BlockPlace(private val occurrenceManager: OccurrenceManager): Listener {
     // listen for block place events
     @EventHandler
-    fun onBlockPlace(event: BlockPlaceEvent){
+    fun onBlockPlace(event: BlockPlaceEvent) {
         val currentOccurrence = occurrenceManager.currentOccurrence ?: return
 
-        if (currentOccurrence is BlockPlaceOccurrence){
+        if (currentOccurrence is BlockPlaceOccurrence) {
             currentOccurrence.onBlockPlace(event)
         }
     }

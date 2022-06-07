@@ -17,7 +17,7 @@ class PlayerMove(private val occurrenceManager: OccurrenceManager): Listener { /
     private val prevPlayersOnGround: MutableSet<UUID> = Sets.newHashSet()
 
     @EventHandler
-    fun onPlayerMove(event: PlayerMoveEvent){
+    fun onPlayerMove(event: PlayerMoveEvent) {
         val player = event.player
 
         if (player.velocity.y > 0) {
@@ -38,7 +38,7 @@ class PlayerMove(private val occurrenceManager: OccurrenceManager): Listener { /
         }
 
         val currentOccurrence = occurrenceManager.currentOccurrence ?: return
-        if (currentOccurrence is PlayerMoveOccurrence){
+        if (currentOccurrence is PlayerMoveOccurrence) {
             currentOccurrence.onPlayerMove(event)
         }
     }
