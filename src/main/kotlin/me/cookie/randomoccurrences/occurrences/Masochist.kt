@@ -25,7 +25,7 @@ class Masochist(plugin: JavaPlugin, occurrenceManager: OccurrenceManager):
 
     override fun onEntityDamage(event: EntityDamageEvent) {
         val player = event.entity
-        if(player !is Player) return
+        if (player !is Player) return
 
         addScore(player, event.damage.toInt())
     }

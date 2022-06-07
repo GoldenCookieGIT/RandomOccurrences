@@ -10,7 +10,7 @@ class BlockBreak(private val occurrenceManager: OccurrenceManager): Listener {
     @EventHandler
     fun onBlockBreak(event: BlockBreakEvent){
         val occurrence = occurrenceManager.currentOccurrence ?: return
-        if(occurrence is BlockBreakOccurence) {
+        if (occurrence is BlockBreakOccurence) {
             occurrence.onBlockBreak(event)
         }
     }

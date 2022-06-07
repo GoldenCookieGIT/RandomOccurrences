@@ -23,7 +23,7 @@ class LeafCutter(plugin: JavaPlugin, occurrenceManager: OccurrenceManager):
     }
 
     override fun onBlockBreak(event: BlockBreakEvent) {
-        if(!event.block.type.toString().contains("LEAVES")) return
+        if (!event.block.type.toString().contains("LEAVES")) return
         addScore(event.player, 1)
     }
 }

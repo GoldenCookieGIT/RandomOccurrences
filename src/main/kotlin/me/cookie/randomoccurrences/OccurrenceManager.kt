@@ -21,13 +21,13 @@ class OccurrenceManager(val plugin: JavaPlugin) {
     var currentOccurrence: Occurrence? = null
 
     fun pickOccurrence() {
-        if(occurrences.isEmpty()) {
+        if (occurrences.isEmpty()) {
             plugin.logger.warning("No occurrences found!")
             return
         }
         val randomOccurrence = occurrences.random()
 
-        if(!randomOccurrence.isEnabled){ // Pick another occurrence if the current one is disabled
+        if (!randomOccurrence.isEnabled){ // Pick another occurrence if the current one is disabled
             pickOccurrence()
             return
         }
@@ -44,7 +44,7 @@ class OccurrenceManager(val plugin: JavaPlugin) {
     fun startDowntime(){
         object: BukkitRunnable() {
             override fun run() {
-                if(currentOccurrence == null && Bukkit.getOnlinePlayers().size >= plugin.config.getInt("minimum-players")) // only pick an occurrence if there is none active, and there's enough players online)
+                if (currentOccurrence == null && Bukkit.getOnlinePlayers().size >= plugin.config.getInt("minimum-players")) // only pick an occurrence if there is none active, and there's enough players online)
                     pickOccurrence()
                 else
                     startDowntime()
@@ -88,14 +88,14 @@ class OccurrenceManager(val plugin: JavaPlugin) {
     private fun compileItems(){
         val config = plugin.config
         val configRewards = config.getConfigurationSection("rewards")
-        if(configRewards == null) {
+        if (configRewards == null) {
             plugin.logger.warning("No items found in config!")
             return
         }
         configRewards.getKeys(false).forEach { configReward ->
             val configSection = configRewards.getConfigurationSection(configReward)!!
 
-            if(configSection.contains("item", true)) {
+            if (configSection.contains("item", true)) {
                 val itemSection = configSection.getConfigurationSection("item")!!
                 plugin.logger.warning("No items found in config for reward: $configReward")
                 val material = Material.valueOf(itemSection.getString("material", "AIR")!!)
@@ -124,10 +124,10 @@ class OccurrenceManager(val plugin: JavaPlugin) {
                 items[configReward] = ItemReward(item)
             }
 
-            if(configSection.contains("command", true)) {
+            if (configSection.contains("command", true)) {
                 val commandSection = configSection.getConfigurationSection("command")!!
                 val command = commandSection.getString("run", "/help")!!.apply {
-                    if(this[0] != '/')
+                    if (this[0] != '/')
                         this.padStart(1, '/')
                 }
                 val executor = commandSection.getString("executor", "PLAYER")!!.uppercase()

@@ -24,7 +24,7 @@ class DamageDealer(plugin: JavaPlugin, occurrenceManager: OccurrenceManager):
     }
 
     override fun onEntityDamageEntity(event: EntityDamageByEntityEvent) {
-        if(event.damager !is Player) return
+        if (event.damager !is Player) return
         addScore(event.damager as Player, event.damage.toInt())
     }
 }

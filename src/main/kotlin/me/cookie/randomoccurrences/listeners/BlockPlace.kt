@@ -12,7 +12,7 @@ class BlockPlace(private val occurrenceManager: OccurrenceManager): Listener {
     fun onBlockPlace(event: BlockPlaceEvent){
         val currentOccurrence = occurrenceManager.currentOccurrence ?: return
 
-        if(currentOccurrence is BlockPlaceOccurrence){
+        if (currentOccurrence is BlockPlaceOccurrence){
             currentOccurrence.onBlockPlace(event)
         }
     }

@@ -14,14 +14,14 @@ class PlayerJoin(private val randomOccurrences: RandomOccurrences): Listener {
     @EventHandler
     fun onPlayerJoin(event: PlayerJoinEvent){
         val player = event.player
-        if(!player.isOp) return
+        if (!player.isOp) return
         getVersion(randomOccurrences, "102217") {
-            if(versionCheck == ("PATCH")){
-                if(it != version){
+            if (versionCheck == ("PATCH")){
+                if (it != version){
                     warnOutdated(player, it)
                 }
             }else{
-                if("${it.split('.')[0]}.${it.split('.')[1]}" != "${version.split('.')[0]}.${version.split('.')[1]}"){
+                if ("${it.split('.')[0]}.${it.split('.')[1]}" != "${version.split('.')[0]}.${version.split('.')[1]}"){
                     warnOutdated(player, it)
                 }
             }

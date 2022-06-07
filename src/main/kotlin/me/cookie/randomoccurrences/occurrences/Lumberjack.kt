@@ -23,7 +23,7 @@ class Lumberjack(plugin: JavaPlugin, occurrenceManager: OccurrenceManager):
     }
 
     override fun onBlockBreak(event: BlockBreakEvent) {
-        if(!event.block.type.name.contains("LOG")) return
+        if (!event.block.type.name.contains("LOG")) return
         addScore(event.player, 1)
     }
 }

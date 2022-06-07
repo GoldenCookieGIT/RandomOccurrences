@@ -32,7 +32,7 @@ class CreeperSlayer(plugin: JavaPlugin, occurrenceManager: OccurrenceManager):
 
         if (entity.type != EntityType.CREEPER) return
         entity as Creeper
-        if(entity.isPowered) {
+        if (entity.isPowered) {
             addScore(killer, 10)
         } else{
             addScore(killer, 1)

@@ -45,12 +45,12 @@ abstract class Occurrence(val plugin: JavaPlugin, val occurrenceManager: Occurre
         sortedMap.forEach { (uuid, score) ->
             place++
             val player = Bukkit.getPlayer(uuid) ?: return@forEach
-            if(rewardMap.containsKey(place)) {
+            if (rewardMap.containsKey(place)) {
                 rewardMap[place-1]!!.forEach {
                     it.itemReward.let { item -> item?.giveItem(player) }
                     it.commandReward.let { command -> command?.performCommand(player) }
                 }
-            }else if(score != 0 && giveParticipationAwards){
+            }else if (score != 0 && giveParticipationAwards){
                 plugin.config.getStringList("occurrences.$configName.participation-awards").forEach {
                     OccurrenceManager.items[it]?.giveItem(player)
                     OccurrenceManager.commands[it]?.performCommand(player)
@@ -83,7 +83,7 @@ abstract class Occurrence(val plugin: JavaPlugin, val occurrenceManager: Occurre
     }
 
     fun addScore(player: Player, score: Int){
-        if(!playerScore.containsKey(player.uniqueId)){
+        if (!playerScore.containsKey(player.uniqueId)){
             playerScore[player.uniqueId] = 0
         }
         playerScore[player.uniqueId] = playerScore[player.uniqueId]!! + score

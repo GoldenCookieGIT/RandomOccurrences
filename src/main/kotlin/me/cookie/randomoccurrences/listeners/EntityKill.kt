@@ -10,7 +10,7 @@ class EntityKill(private val occurrenceManager: OccurrenceManager): Listener {
     @EventHandler
     fun onEntityKill(event: EntityDeathEvent) {
         val occurrence = occurrenceManager.currentOccurrence ?: return // return if no occurrence is running
-        if(occurrence is EntityKillOccurrence) { // check if occurrence is an EntityKillOccurrence
+        if (occurrence is EntityKillOccurrence) { // check if occurrence is an EntityKillOccurrence
             occurrence.onEntityKill(event)
         }
     }

@@ -11,7 +11,7 @@ class EntityDamageByEntity(private val occurrenceManager: OccurrenceManager): Li
     fun onEntityDamageEntity(event: EntityDamageByEntityEvent){
         val currentOccurrence = occurrenceManager.currentOccurrence ?: return
 
-        if(currentOccurrence is EntityDamageEntityOccurrence){
+        if (currentOccurrence is EntityDamageEntityOccurrence){
             currentOccurrence.onEntityDamageEntity(event)
         }
     }

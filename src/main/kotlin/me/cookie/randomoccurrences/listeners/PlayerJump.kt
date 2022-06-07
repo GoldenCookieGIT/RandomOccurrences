@@ -10,7 +10,7 @@ class PlayerJump(private val occurrenceManager: OccurrenceManager): Listener {
     @EventHandler
     fun onPlayerJump(event: PlayerJumpEvent) {
         val currentOccurrence = occurrenceManager.currentOccurrence ?: return
-        if(currentOccurrence is PlayerJumpOccurrence) {
+        if (currentOccurrence is PlayerJumpOccurrence) {
             currentOccurrence.onPlayerJump(event.player)
         }
     }

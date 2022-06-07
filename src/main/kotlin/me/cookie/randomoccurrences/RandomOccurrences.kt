@@ -2,18 +2,17 @@ package me.cookie.randomoccurrences
 
 import me.cookie.randomoccurrences.listeners.*
 import org.bstats.bukkit.Metrics
-import org.bukkit.event.Listener
 import org.bukkit.plugin.java.JavaPlugin
 import java.io.File
 
-class RandomOccurrences: JavaPlugin(), Listener {
+class RandomOccurrences: JavaPlugin() {
     lateinit var occurrenceManager: OccurrenceManager
 
     override fun onEnable() {
         val pluginId = 15297
         val metrics = Metrics(this, pluginId)
 
-        if(config.getInt("minimum-players", -1) < 0){
+        if (config.getInt("minimum-players", -1) < 0){
             logger.severe(" [!!!] The config has been changed! Please update the config file! (a backup of your old config has been made) [!!!] ")
             val file = File(dataFolder, "config.yml")
             file.renameTo(File(dataFolder, "config.old.yml"))
@@ -23,7 +22,7 @@ class RandomOccurrences: JavaPlugin(), Listener {
 
         occurrenceManager = OccurrenceManager(this)
         saveDefaultConfig()
-        server.pluginManager.registerEvents(this, this)
+
         server.pluginManager.registerEvents(BlockBreak(occurrenceManager), this)
         server.pluginManager.registerEvents(BlockPlace(occurrenceManager), this)
         server.pluginManager.registerEvents(EntityDamage(occurrenceManager), this)
@@ -32,14 +31,15 @@ class RandomOccurrences: JavaPlugin(), Listener {
         server.pluginManager.registerEvents(PlayerJump(occurrenceManager), this)
         server.pluginManager.registerEvents(PlayerFish(occurrenceManager), this)
         server.pluginManager.registerEvents(PlayerMove(occurrenceManager), this)
-        if(config.getString("update-checker", "OFF") != "OFF"){
+
+        if (config.getString("update-checker", "OFF") != "OFF"){
             server.pluginManager.registerEvents(PlayerJoin(this), this)
         }
     }
 
     override fun onDisable() {
         // Disable logic
-        if(occurrenceManager.currentOccurrence != null) {
+        if (occurrenceManager.currentOccurrence != null) {
             occurrenceManager.currentOccurrence!!.end()
         }
         return

@@ -24,7 +24,7 @@ class FishingPros(plugin: JavaPlugin, occurrenceManager: OccurrenceManager):
     }
 
     override fun onPlayerFish(event: PlayerFishEvent) {
-        if(event.caught !is Item) return
+        if (event.caught !is Item) return
 
         addScore(event.player, 1)
     }

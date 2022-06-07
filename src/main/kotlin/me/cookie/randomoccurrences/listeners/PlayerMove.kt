@@ -38,7 +38,7 @@ class PlayerMove(private val occurrenceManager: OccurrenceManager): Listener { /
         }
 
         val currentOccurrence = occurrenceManager.currentOccurrence ?: return
-        if(currentOccurrence is PlayerMoveOccurrence){
+        if (currentOccurrence is PlayerMoveOccurrence){
             currentOccurrence.onPlayerMove(event)
         }
     }

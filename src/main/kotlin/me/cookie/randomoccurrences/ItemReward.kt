@@ -5,7 +5,7 @@ import org.bukkit.inventory.ItemStack
 
 class ItemReward(private val item: ItemStack){
     fun giveItem(player: Player){
-        if(!player.inventory.isFull)
+        if (!player.inventory.isFull)
             player.inventory.addItem(item)
         else
             player.world.dropItem(player.location, item)
