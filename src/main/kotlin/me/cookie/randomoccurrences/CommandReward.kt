@@ -4,19 +4,18 @@ import org.bukkit.Bukkit
 import org.bukkit.entity.Player
 
 class CommandReward(private val command: String, private val executor: Executor, private val ignorePerms: Boolean) {
-    fun performCommand(player: Player? = null): Boolean {
-        if (player != null && executor == Executor.PLAYER) {
+    fun performCommand(player: Player): Boolean {
+        val commandString = command.replace("%player%", player.name)
+        if (executor == Executor.PLAYER) {
             if (ignorePerms)
-                Bukkit.getServer().dispatchCommand(player, command.replaceFirst("/", ""))
+                Bukkit.getServer().dispatchCommand(player, commandString.replaceFirst("/", ""))
             else
-                player.chat(command)
+                player.chat(commandString)
             return true
-        } else if (player == null && executor == Executor.PLAYER) {
-            throw IllegalArgumentException("Player cannot be null when Executor is PLAYER")
         }
 
         if (executor == Executor.CONSOLE) {
-            Bukkit.getServer().dispatchCommand(Bukkit.getConsoleSender(), command)
+            Bukkit.getServer().dispatchCommand(Bukkit.getConsoleSender(), commandString)
             return true
         }
 

@@ -150,7 +150,7 @@ rewards:
         - "DAMAGE_ALL:1"
         - "DAMAGE_UNDEAD:2"
         - "DAMAGE_ARTHROPODS:3"
-    command: # execute a command as a reward
+    command: # execute a command as a reward (you can use %player_name% to get the name of the player)
       run: "/help" # the command to run
       as: PLAYER # execute the command as the PLAYER or SERVER
       ignore-perms: true # ignore player's permissions when executing the command (only applicable if as is set to PLAYER)
