@@ -17,9 +17,8 @@ repositories {
 }
 
 dependencies {
-    compileOnly("org.spigotmc:spigot-api:1.18.2-R0.1-SNAPSHOT")
-    compileOnly("org.jetbrains.kotlin:kotlin-stdlib:1.6.0") // Shade Kotlin
-    implementation("org.reflections:reflections:0.10.2") // Shade Reflections
+    compileOnly("org.spigotmc:spigot-api:1.18.2-R0.1-20220607.160742-53")
+    compileOnly("org.jetbrains.kotlin:kotlin-stdlib:1.6.0") // Use kotlin
     implementation("org.bstats:bstats-bukkit:3.0.0") // Shade bStats
 }
 
@@ -28,10 +27,9 @@ bukkit {
     main = "me.cookie.randomoccurrences.RandomOccurrences"
     apiVersion = "1.13"
     libraries = listOf(
-                    "org.jetbrains.kotlin:kotlin-stdlib:1.6.0",
+                    "org.jetbrains.kotlin:kotlin-stdlib:1.7.0",
                 )
     bukkit.version = version
-
 }
 
 tasks.withType<KotlinCompile> {

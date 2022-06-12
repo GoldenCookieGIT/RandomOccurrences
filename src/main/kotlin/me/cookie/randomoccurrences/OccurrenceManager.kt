@@ -1,12 +1,12 @@
 package me.cookie.randomoccurrences
 
+import me.cookie.randomoccurrences.occurrences.*
 import org.bukkit.Bukkit
 import org.bukkit.Material
 import org.bukkit.enchantments.Enchantment
 import org.bukkit.inventory.ItemStack
 import org.bukkit.plugin.java.JavaPlugin
 import org.bukkit.scheduler.BukkitRunnable
-import org.reflections.Reflections
 
 class OccurrenceManager(val plugin: JavaPlugin) {
 
@@ -36,7 +36,7 @@ class OccurrenceManager(val plugin: JavaPlugin) {
     }
 
     init {
-        compileItems()
+        compileRewards()
         registerOccurrences()
         startDowntime()
     }
@@ -71,21 +71,39 @@ class OccurrenceManager(val plugin: JavaPlugin) {
     }
 
     private fun registerOccurrences() {
-        val reflections = Reflections("me.cookie.randomoccurrences.occurrences")
-        val occurrenceClasses = reflections.getSubTypesOf(Occurrence::class.java)
+        occurrences.add(CreeperSlayer(plugin, this))
+        occurrences.add(DamageDealer(plugin, this))
+        occurrences.add(FishingPros(plugin, this))
+        occurrences.add(GoldMiner(plugin, this))
+        occurrences.add(Jumper(plugin, this))
+        occurrences.add(LeafCutter(plugin, this))
+        occurrences.add(Lumberjack(plugin, this))
+        occurrences.add(Masochist(plugin, this))
+        occurrences.add(MasterBuilders(plugin, this))
+        occurrences.add(StoneMiner(plugin, this))
 
-        occurrenceClasses.forEach {
-            registerOccurrence(it)
-        }
+        // broken :(
+        /*registerOccurrence(CreeperSlayer::class.java)
+        registerOccurrence(DamageDealer::class.java)
+        registerOccurrence(FishingPros::class.java)
+        registerOccurrence(GoldMiner::class.java)
+        registerOccurrence(Jumper::class.java)
+        registerOccurrence(LeafCutter::class.java)
+        registerOccurrence(Lumberjack::class.java)
+        registerOccurrence(Masochist::class.java)
+        registerOccurrence(MasterBuilders::class.java)
+        registerOccurrence(StoneMiner::class.java)*/
     }
 
-    fun registerOccurrence(occurrenceClass: Class<out Occurrence>) { // TODO: Make this more generic (rework this to allow adding custom occurrences via api or smthn)
-        val occurrence = occurrenceClass.getDeclaredConstructor(JavaPlugin::class.java, this::class.java).newInstance(plugin, this@OccurrenceManager)
+
+    // Completely Broken
+    /*fun registerOccurrence(occurrenceClass: Class<out Occurrence>) { // TODO: Make this more generic (rework this to allow adding custom occurrences via api or smthn)
+        val occurrence = occurrenceClass.getDeclaredConstructor(JavaPlugin::class.java, this::class.java).newInstance(plugin, this)
         plugin.logger.info("Registered occurrence: ${occurrence.configName}")
         occurrences.add(occurrence)
-    }
+    }*/
 
-    private fun compileItems(){
+    private fun compileRewards(){
         val config = plugin.config
         val configRewards = config.getConfigurationSection("rewards")
         if (configRewards == null) {
