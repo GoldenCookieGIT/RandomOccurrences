@@ -5,7 +5,7 @@ import org.bukkit.entity.Player
 
 class CommandReward(private val command: String, private val executor: Executor, private val ignorePerms: Boolean) {
     fun performCommand(player: Player): Boolean {
-        val commandString = command.replace("%player%", player.name)
+        val commandString = command.replace("%player_name%", player.name)
         if (executor == Executor.PLAYER) {
             if (ignorePerms)
                 Bukkit.getServer().dispatchCommand(player, commandString.replaceFirst("/", ""))
