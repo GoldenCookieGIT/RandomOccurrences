@@ -8,8 +8,7 @@ import org.bukkit.event.block.BlockBreakEvent
 import org.bukkit.plugin.java.JavaPlugin
 
 class GoldMiner(plugin: JavaPlugin, occurrenceManager: OccurrenceManager):
-    Occurrence(plugin, occurrenceManager), BlockBreakOccurence {
-    override val configName: String = "gold-miner"
+    Occurrence(plugin, occurrenceManager, "gold-miner"), BlockBreakOccurence {
     override val friendlyName: String = "Gold Miner"
     override val description: List<String> = listOf(
         "#4d4d4dMine the most gold to win!",

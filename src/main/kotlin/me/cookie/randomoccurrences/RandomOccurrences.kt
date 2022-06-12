@@ -10,7 +10,9 @@ class RandomOccurrences: JavaPlugin() {
 
     override fun onEnable() {
         val pluginId = 15297
-        val metrics = Metrics(this, pluginId)
+        Metrics(this, pluginId)
+
+        occurrenceManager = OccurrenceManager(this)
 
         if (config.getInt("minimum-players", -1) < 0) {
             logger.severe(" [!!!] The config has been changed! Please update the config file! (a backup of your old config has been made) [!!!] ")
@@ -20,7 +22,6 @@ class RandomOccurrences: JavaPlugin() {
             reloadConfig()
         }
 
-        occurrenceManager = OccurrenceManager(this)
         saveDefaultConfig()
 
         server.pluginManager.registerEvents(BlockBreak(occurrenceManager), this)

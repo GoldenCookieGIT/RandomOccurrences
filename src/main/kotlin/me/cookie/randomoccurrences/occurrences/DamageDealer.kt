@@ -8,8 +8,7 @@ import org.bukkit.event.entity.EntityDamageByEntityEvent
 import org.bukkit.plugin.java.JavaPlugin
 
 class DamageDealer(plugin: JavaPlugin, occurrenceManager: OccurrenceManager):
-    Occurrence(plugin, occurrenceManager), EntityDamageEntityOccurrence {
-    override val configName: String = "damage-dealer"
+    Occurrence(plugin, occurrenceManager, "damage-dealer"), EntityDamageEntityOccurrence {
     override val friendlyName: String = "Damage Dealer"
     override val description: List<String> = listOf(
         "#4d4d4dDeal the most damage to win!",
