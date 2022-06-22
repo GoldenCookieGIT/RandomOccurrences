@@ -23,7 +23,7 @@ class GoldMiner(plugin: JavaPlugin, occurrenceManager: OccurrenceManager):
     }
 
     override fun onBlockBreak(event: BlockBreakEvent) {
-        if (event.block.type == Material.GOLD_ORE){
+        if (event.block.type == Material.GOLD_ORE || event.block.type == Material.DEEPSLATE_GOLD_ORE){
             addScore(event.player, 1)
         }
     }

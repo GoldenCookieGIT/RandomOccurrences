@@ -23,10 +23,9 @@ class StoneMiner(plugin: JavaPlugin, occurrenceManager: OccurrenceManager):
     }
 
     override fun onBlockBreak(event: BlockBreakEvent) {
-        val block = event.block
-        val player = event.player
-        if (block.type != Material.STONE) return
-        addScore(player, 1)
+        if (event.block.type == Material.STONE || event.block.type == Material.DEEPSLATE){
+            addScore(event.player, 1)
+        }
     }
 
 }
