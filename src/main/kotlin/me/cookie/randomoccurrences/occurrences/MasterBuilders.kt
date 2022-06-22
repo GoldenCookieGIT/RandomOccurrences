@@ -7,8 +7,8 @@ import org.bukkit.event.block.BlockPlaceEvent
 import org.bukkit.plugin.java.JavaPlugin
 
 class MasterBuilders(plugin: JavaPlugin, occurrenceManager: OccurrenceManager):
-    Occurrence(plugin, occurrenceManager, "master-builders"), BlockPlaceOccurrence {
-    override val friendlyName: String = "Master Builders"
+    Occurrence(plugin, occurrenceManager, "master-builders", "Master Builders"), BlockPlaceOccurrence {
+
     override val description: List<String> = listOf(
         "#4d4d4dPlace the most blocks to win!",
     )

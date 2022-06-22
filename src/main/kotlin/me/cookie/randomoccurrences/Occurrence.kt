@@ -1,13 +1,20 @@
 package me.cookie.randomoccurrences
 
 import org.bukkit.Bukkit
+import org.bukkit.boss.BarColor
+import org.bukkit.boss.BarStyle
 import org.bukkit.entity.Player
 import org.bukkit.plugin.java.JavaPlugin
 import org.bukkit.scheduler.BukkitRunnable
 import java.util.*
 
-abstract class Occurrence(val plugin: JavaPlugin, val occurrenceManager: OccurrenceManager, val configName: String) {
-    abstract val friendlyName: String
+abstract class Occurrence(
+    val plugin: JavaPlugin,
+    val occurrenceManager: OccurrenceManager,
+    val configName: String,
+    val friendlyName: String
+    ) {
+
     abstract val description: List<String>
     abstract fun occur() // start logic, occurrence specific
     abstract fun cleanup() // cleanup logic, occurrence specific
@@ -19,7 +26,8 @@ abstract class Occurrence(val plugin: JavaPlugin, val occurrenceManager: Occurre
     /* length in minutes of this occurrence */
     private val time: Long = plugin.config.getInt("occurrences.$configName.time").toLong() * 1200 /* from minutes to ticks */
     val rewardMap: Map<Int /* leaderboard place */, Array<Reward> /* rewards to give */> = occurrenceManager.getRewards(configName)
-
+    val bossBar = Bukkit.getServer()
+        .createBossBar("Current occurrence: $friendlyName", BarColor.BLUE, BarStyle.SOLID)
     fun start() {
         occurrenceManager.currentOccurrence = this
         Bukkit.getServer().onlinePlayers.forEach { player ->
@@ -75,6 +83,9 @@ abstract class Occurrence(val plugin: JavaPlugin, val occurrenceManager: Occurre
             player.sendMessage("#4a4a4a--=-=-=-=-=-=-=-=-=-=-=-=-=-=-=--".formatHexColors())
         }
 
+        bossBar.isVisible = false
+        bossBar.removeAll()
+
         cleanup()
         playerScore.clear()
         occurrenceManager.currentOccurrence = null
@@ -89,10 +100,40 @@ abstract class Occurrence(val plugin: JavaPlugin, val occurrenceManager: Occurre
     }
 
     private fun startTimer() {
+        startBossbar()
         object: BukkitRunnable() {
             override fun run() {
                 end()
             }
         }.runTaskLater(plugin, time)
+    }
+
+    private fun startBossbar(){
+        var timer = time.toDouble()
+        bossBar.isVisible = true
+        bossBar.progress = 1.0
+        object: BukkitRunnable() {
+            override fun run() {
+                playerScore.keys.forEach {
+                    val player = Bukkit.getPlayer(it) ?: return@forEach
+                    if(!bossBar.players.contains(player))
+                        bossBar.addPlayer(player)
+                }
+                var color = "#07f543"
+                println(((timer/20) % 2))
+                if(((timer/20) % 2) == 0.0){
+                    color = "#ea00ff"
+                }
+
+
+                bossBar.setTitle(
+                    "#808080Current occurrence: &l$color$friendlyName".formatHexColors()
+                )
+                bossBar.progress = (timer/time)
+                timer -= 20
+                if(timer <= 0)
+                    cancel()
+            }
+        }.runTaskTimer(plugin, 20, 20)
     }
 }

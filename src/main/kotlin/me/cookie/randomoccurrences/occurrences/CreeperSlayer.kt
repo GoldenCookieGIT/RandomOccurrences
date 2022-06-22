@@ -9,9 +9,9 @@ import org.bukkit.event.entity.EntityDeathEvent
 import org.bukkit.plugin.java.JavaPlugin
 
 class CreeperSlayer(plugin: JavaPlugin, occurrenceManager: OccurrenceManager):
-    Occurrence(plugin, occurrenceManager, "creeper-slayer"), EntityKillOccurrence {
+    Occurrence(plugin, occurrenceManager, "creeper-slayer", "Creeper Slayer"),
+    EntityKillOccurrence {
 
-    override val friendlyName: String = "Creeper Slayer"
     override val description: List<String> = listOf(
         "#4d4d4dKill the most creepers to win!",
         "#4d4d4dCreepers are worth 1 point while charged ones are 10!"

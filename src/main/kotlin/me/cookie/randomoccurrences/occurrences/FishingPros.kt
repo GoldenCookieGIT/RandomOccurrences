@@ -8,8 +8,9 @@ import org.bukkit.event.player.PlayerFishEvent
 import org.bukkit.plugin.java.JavaPlugin
 
 class FishingPros(plugin: JavaPlugin, occurrenceManager: OccurrenceManager):
-    Occurrence(plugin, occurrenceManager, "fishing-pros"), PlayerFishOccurrence {
-    override val friendlyName: String = "Fishing Pros"
+    Occurrence(plugin, occurrenceManager, "fishing-pros", "Fishing Pros"),
+    PlayerFishOccurrence {
+
     override val description: List<String> = listOf(
         "#4d4d4dFish up the most items to win!",
     )

@@ -7,8 +7,8 @@ import org.bukkit.event.block.BlockBreakEvent
 import org.bukkit.plugin.java.JavaPlugin
 
 class LeafCutter(plugin: JavaPlugin, occurrenceManager: OccurrenceManager):
-    Occurrence(plugin, occurrenceManager, "leaf-cutter"), BlockBreakOccurence {
-    override val friendlyName: String = "Leaf Cutter"
+    Occurrence(plugin, occurrenceManager, "leaf-cutter", "Leaf Cutter"), BlockBreakOccurence {
+
     override val description: List<String> = listOf(
         "#4d4d4dBreak the most leaves to win!",
     )

@@ -7,8 +7,8 @@ import org.bukkit.event.block.BlockBreakEvent
 import org.bukkit.plugin.java.JavaPlugin
 
 class Lumberjack(plugin: JavaPlugin, occurrenceManager: OccurrenceManager):
-    Occurrence(plugin, occurrenceManager, "lumberjack"), BlockBreakOccurence {
-    override val friendlyName: String = "Lumberjack"
+    Occurrence(plugin, occurrenceManager, "lumberjack", "Lumberjack"), BlockBreakOccurence {
+
     override val description: List<String> = listOf(
         "#4d4d4dChop down the most logs to win!",
     )
