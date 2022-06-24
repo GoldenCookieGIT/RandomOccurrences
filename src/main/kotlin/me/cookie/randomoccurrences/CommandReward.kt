@@ -14,8 +14,8 @@ class CommandReward(private val command: String, private val executor: Executor,
             return true
         }
 
-        if (executor == Executor.CONSOLE) {
-            Bukkit.getServer().dispatchCommand(Bukkit.getConsoleSender(), commandString)
+        if (executor == Executor.SERVER) {
+            Bukkit.getServer().dispatchCommand(Bukkit.getConsoleSender(), commandString.replaceFirst("/", ""))
             return true
         }
 

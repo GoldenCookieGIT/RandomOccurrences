@@ -148,7 +148,7 @@ class OccurrenceManager(val plugin: JavaPlugin) {
                     if (this[0] != '/')
                         this.padStart(1, '/')
                 }
-                val executor = commandSection.getString("executor", "PLAYER")!!.uppercase()
+                val executor = commandSection.getString("as", "PLAYER")!!.uppercase()
                 val ignorePerms = commandSection.getBoolean("ignore-permissions", false)
                 commands[configReward] = CommandReward(command, Executor.valueOf(executor), ignorePerms)
             }
