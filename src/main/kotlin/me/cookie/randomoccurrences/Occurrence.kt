@@ -109,6 +109,7 @@ abstract class Occurrence(
     }
 
     private fun startBossbar(){
+        if(plugin.config.getBoolean("bossbar", false)) return
         var timer = time.toDouble()
         bossBar.isVisible = true
         bossBar.progress = 1.0
@@ -119,15 +120,15 @@ abstract class Occurrence(
                     if(!bossBar.players.contains(player))
                         bossBar.addPlayer(player)
                 }
+
                 var color = "#07f543"
-                println(((timer/20) % 2))
                 if(((timer/20) % 2) == 0.0){
-                    color = "#ea00ff"
+                    color = "#db3b2a"
                 }
 
 
                 bossBar.setTitle(
-                    "#808080Current occurrence: &l$color$friendlyName".formatHexColors()
+                    "#c2c2c2Current occurrence: &l$color$friendlyName".formatHexColors()
                 )
                 bossBar.progress = (timer/time)
                 timer -= 20
