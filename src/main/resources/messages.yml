@@ -20,6 +20,7 @@ lumberjack: "Lumberjack"
 masochist: "Masochist"
 master-builders: "Master Builders"
 stone-miner: "Stone Miner"
+dj: "DJ"
 
 # Occurrence descriptions
 creeper-slayer-description:
@@ -52,3 +53,6 @@ master-builders-description:
 
 stone-miner-description:
   - "Mine the most stone to win!"
+
+dj-description:
+  - "Play the most notes to win!"

@@ -7,9 +7,13 @@ import me.cookie.randomoccurrences.occurrences.events.BlockBreakOccurence
 import org.bukkit.event.block.BlockBreakEvent
 
 class Lumberjack(plugin: RandomOccurrences, occurrenceManager: OccurrenceManager):
-    Occurrence(plugin, occurrenceManager, "lumberjack", plugin.messages.lumberjack), BlockBreakOccurence {
-
-    override var description: List<String> = plugin.messages.lumberjackDescription
+    Occurrence(
+        plugin,
+        occurrenceManager,
+        "lumberjack",
+        plugin.messages.lumberjack,
+        plugin.messages.lumberjackDescription
+    ), BlockBreakOccurence {
 
     override fun occur() {
         return

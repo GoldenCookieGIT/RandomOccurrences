@@ -8,10 +8,13 @@ import org.bukkit.Material
 import org.bukkit.event.block.BlockBreakEvent
 
 class GoldMiner(plugin: RandomOccurrences, occurrenceManager: OccurrenceManager):
-    Occurrence(plugin, occurrenceManager, "gold-miner", plugin.messages.goldMiner),
-    BlockBreakOccurence {
-
-    override var description: List<String> = plugin.messages.goldMinerDescription
+    Occurrence(
+        plugin,
+        occurrenceManager,
+        "gold-miner",
+        plugin.messages.goldMiner,
+        plugin.messages.goldMinerDescription
+    ), BlockBreakOccurence {
 
     override fun occur() {
         return

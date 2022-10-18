@@ -8,10 +8,13 @@ import org.bukkit.entity.Item
 import org.bukkit.event.player.PlayerFishEvent
 
 class FishingPros(plugin: RandomOccurrences, occurrenceManager: OccurrenceManager):
-    Occurrence(plugin, occurrenceManager, "fishing-pros", plugin.messages.fishingPros),
-    PlayerFishOccurrence {
-
-    override var description: List<String> = plugin.messages.fishingProsDescription
+    Occurrence(
+        plugin,
+        occurrenceManager,
+        "fishing-pros",
+        plugin.messages.fishingPros,
+        plugin.messages.fishingProsDescription
+    ), PlayerFishOccurrence {
 
     override fun occur() {
         return

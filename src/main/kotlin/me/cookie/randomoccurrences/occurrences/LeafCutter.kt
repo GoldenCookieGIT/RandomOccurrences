@@ -7,9 +7,14 @@ import me.cookie.randomoccurrences.occurrences.events.BlockBreakOccurence
 import org.bukkit.event.block.BlockBreakEvent
 
 class LeafCutter(plugin: RandomOccurrences, occurrenceManager: OccurrenceManager):
-    Occurrence(plugin, occurrenceManager, "leaf-cutter", plugin.messages.leafCutter), BlockBreakOccurence {
+    Occurrence(
+        plugin,
+        occurrenceManager,
+        "leaf-cutter",
+        plugin.messages.leafCutter,
+        plugin.messages.leafCutterDescription
+    ), BlockBreakOccurence {
 
-    override var description: List<String> = plugin.messages.leafCutterDescription
     override fun occur() {
         return
     }

@@ -7,9 +7,13 @@ import me.cookie.randomoccurrences.occurrences.events.PlayerJumpOccurrence
 import org.bukkit.entity.Player
 
 class Jumper(plugin: RandomOccurrences, occurrenceManager: OccurrenceManager):
-    Occurrence(plugin, occurrenceManager, "jumper", plugin.messages.jumper), PlayerJumpOccurrence {
-
-    override var description: List<String> = plugin.messages.jumperDescription
+    Occurrence(
+        plugin,
+        occurrenceManager,
+        "jumper",
+        plugin.messages.jumper,
+        plugin.messages.jumperDescription
+    ), PlayerJumpOccurrence {
 
     override fun occur() {
         return

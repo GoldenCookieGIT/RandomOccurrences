@@ -11,9 +11,9 @@ abstract class Occurrence(
     val plugin: RandomOccurrences,
     val occurrenceManager: OccurrenceManager,
     val configName: String,
-    var friendlyName: String) {
+    var friendlyName: String,
+    var description: List<String>) {
 
-    abstract var description: List<String>
     abstract fun occur() // start logic, occurrence specific
     abstract fun cleanup() // cleanup logic, occurrence specific
 

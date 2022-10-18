@@ -8,9 +8,13 @@ import org.bukkit.Material
 import org.bukkit.event.block.BlockBreakEvent
 
 class StoneMiner(plugin: RandomOccurrences, occurrenceManager: OccurrenceManager):
-    Occurrence(plugin, occurrenceManager, "stone-miner", plugin.messages.stoneMiner), BlockBreakOccurence {
-
-    override var description: List<String> = plugin.messages.stoneMinerDescription
+    Occurrence(
+        plugin,
+        occurrenceManager,
+        "stone-miner",
+        plugin.messages.stoneMiner,
+        plugin.messages.stoneMinerDescription
+    ), BlockBreakOccurence {
 
     override fun occur() {
         return

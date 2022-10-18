@@ -8,9 +8,13 @@ import org.bukkit.entity.Player
 import org.bukkit.event.entity.EntityDamageEvent
 
 class Masochist(plugin: RandomOccurrences, occurrenceManager: OccurrenceManager):
-    Occurrence(plugin, occurrenceManager, "masochist", plugin.messages.masochist), EntityDamageOccurrence {
-
-    override var description: List<String> = plugin.messages.masochistDescription
+    Occurrence(
+        plugin,
+        occurrenceManager,
+        "masochist",
+        plugin.messages.masochist,
+        plugin.messages.masochistDescription
+    ), EntityDamageOccurrence {
 
     override fun occur() {
         return

@@ -8,10 +8,13 @@ import org.bukkit.entity.Player
 import org.bukkit.event.entity.EntityDamageByEntityEvent
 
 class DamageDealer(plugin: RandomOccurrences, occurrenceManager: OccurrenceManager):
-    Occurrence(plugin, occurrenceManager, "damage-dealer", plugin.messages.damageDealer),
-    EntityDamageEntityOccurrence {
-
-    override var description: List<String> = plugin.messages.damageDealerDescription
+    Occurrence(
+        plugin,
+        occurrenceManager,
+        "damage-dealer",
+        plugin.messages.damageDealer,
+        plugin.messages.damageDealerDescription
+    ), EntityDamageEntityOccurrence {
 
     override fun occur() {
         return

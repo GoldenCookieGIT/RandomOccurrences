@@ -9,10 +9,13 @@ import org.bukkit.entity.EntityType
 import org.bukkit.event.entity.EntityDeathEvent
 
 class CreeperSlayer(plugin: RandomOccurrences, occurrenceManager: OccurrenceManager):
-    Occurrence(plugin, occurrenceManager, "creeper-slayer", plugin.messages.creeperSlayer),
-    EntityKillOccurrence {
-
-    override var description: List<String> = plugin.messages.creeperSlayerDescription
+    Occurrence(
+        plugin,
+        occurrenceManager,
+        "creeper-slayer",
+        plugin.messages.creeperSlayer,
+        plugin.messages.creeperSlayerDescription
+    ), EntityKillOccurrence {
 
     override fun occur() {
         return

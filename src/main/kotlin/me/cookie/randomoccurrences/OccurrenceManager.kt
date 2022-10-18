@@ -89,6 +89,7 @@ class OccurrenceManager(val plugin: RandomOccurrences) {
         occurrences.add(Masochist(plugin, this))
         occurrences.add(MasterBuilders(plugin, this))
         occurrences.add(StoneMiner(plugin, this))
+        occurrences.add(DJ(plugin, this))
 
         // broken :(
         /*registerOccurrence(CreeperSlayer::class.java)

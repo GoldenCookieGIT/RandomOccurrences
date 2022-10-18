@@ -7,9 +7,13 @@ import me.cookie.randomoccurrences.occurrences.events.BlockPlaceOccurrence
 import org.bukkit.event.block.BlockPlaceEvent
 
 class MasterBuilders(plugin: RandomOccurrences, occurrenceManager: OccurrenceManager):
-    Occurrence(plugin, occurrenceManager, "master-builders", plugin.messages.masterBuilders), BlockPlaceOccurrence {
-
-    override var description: List<String> = plugin.messages.masterBuildersDescription
+    Occurrence(
+        plugin,
+        occurrenceManager,
+        "master-builders",
+        plugin.messages.masterBuilders,
+        plugin.messages.masterBuildersDescription
+    ), BlockPlaceOccurrence {
 
     override fun occur() {
         return
