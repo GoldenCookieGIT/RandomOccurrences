@@ -137,6 +137,19 @@ occurrences:
         - CoolItem
     participation-awards:
       - MehItem
+
+  dj:
+    enabled: true
+    time: 1
+    rewards:
+      1:
+        - CoolItem
+      2:
+        - CoolItem
+      3:
+        - CoolItem
+    participation-awards:
+      - MehItem
   # ...
 
 rewards:

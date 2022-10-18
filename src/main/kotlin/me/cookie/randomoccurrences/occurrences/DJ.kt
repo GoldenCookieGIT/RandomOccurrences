@@ -21,7 +21,7 @@ class DJ(plugin: RandomOccurrences, occurrenceManager: OccurrenceManager):
             addScore(event.player, 1)
     }
 
-    override fun occur() {}
+    override fun occur() { return }
 
-    override fun cleanup() {}
+    override fun cleanup() { return }
 }

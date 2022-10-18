@@ -9,8 +9,7 @@ import org.bukkit.event.player.PlayerInteractEvent
 class PlayerInteract(private val occurrenceManager: OccurrenceManager): Listener {
     @EventHandler
     fun onPlayerInteract(event: PlayerInteractEvent) {
-        val currentOccurrence = occurrenceManager.currentOccurrence ?: return
-
+        val currentOccurrence = occurrenceManager.currentOccurrence
         if (currentOccurrence is PlayerInteractOccurrence) {
             currentOccurrence.onPlayerInteract(event)
         }
