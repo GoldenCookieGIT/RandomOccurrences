@@ -55,10 +55,10 @@ class OccurrenceManager(val plugin: RandomOccurrences) {
                     pickOccurrence()
                 else
                     startDowntime()
-
             }
         }
-        downtimeTask!!.runTaskLater(plugin, downTime)
+        if (plugin.isEnabled)
+            downtimeTask?.runTaskLater(plugin, downTime)
     }
 
     fun getRewards(configName: String): Map<Int, Array<Reward>> {
