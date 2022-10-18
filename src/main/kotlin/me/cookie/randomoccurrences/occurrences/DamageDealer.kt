@@ -2,18 +2,16 @@ package me.cookie.randomoccurrences.occurrences
 
 import me.cookie.randomoccurrences.Occurrence
 import me.cookie.randomoccurrences.OccurrenceManager
+import me.cookie.randomoccurrences.RandomOccurrences
 import me.cookie.randomoccurrences.occurrences.events.EntityDamageEntityOccurrence
 import org.bukkit.entity.Player
 import org.bukkit.event.entity.EntityDamageByEntityEvent
-import org.bukkit.plugin.java.JavaPlugin
 
-class DamageDealer(plugin: JavaPlugin, occurrenceManager: OccurrenceManager):
-    Occurrence(plugin, occurrenceManager, "damage-dealer", "Damage Dealer"),
+class DamageDealer(plugin: RandomOccurrences, occurrenceManager: OccurrenceManager):
+    Occurrence(plugin, occurrenceManager, "damage-dealer", plugin.messages.damageDealer),
     EntityDamageEntityOccurrence {
 
-    override val description: List<String> = listOf(
-        "#4d4d4dDeal the most damage to win!",
-    )
+    override var description: List<String> = plugin.messages.damageDealerDescription
 
     override fun occur() {
         return

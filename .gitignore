@@ -37,3 +37,5 @@ bin/
 
 ### Mac OS ###
 .DS_Store
+# Ignore Gradle build output directory
+build

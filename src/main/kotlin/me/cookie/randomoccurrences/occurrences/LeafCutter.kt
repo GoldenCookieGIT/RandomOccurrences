@@ -2,17 +2,14 @@ package me.cookie.randomoccurrences.occurrences
 
 import me.cookie.randomoccurrences.Occurrence
 import me.cookie.randomoccurrences.OccurrenceManager
+import me.cookie.randomoccurrences.RandomOccurrences
 import me.cookie.randomoccurrences.occurrences.events.BlockBreakOccurence
 import org.bukkit.event.block.BlockBreakEvent
-import org.bukkit.plugin.java.JavaPlugin
 
-class LeafCutter(plugin: JavaPlugin, occurrenceManager: OccurrenceManager):
-    Occurrence(plugin, occurrenceManager, "leaf-cutter", "Leaf Cutter"), BlockBreakOccurence {
+class LeafCutter(plugin: RandomOccurrences, occurrenceManager: OccurrenceManager):
+    Occurrence(plugin, occurrenceManager, "leaf-cutter", plugin.messages.leafCutter), BlockBreakOccurence {
 
-    override val description: List<String> = listOf(
-        "#4d4d4dBreak the most leaves to win!",
-    )
-
+    override var description: List<String> = plugin.messages.leafCutterDescription
     override fun occur() {
         return
     }

@@ -2,20 +2,17 @@ package me.cookie.randomoccurrences.occurrences
 
 import me.cookie.randomoccurrences.Occurrence
 import me.cookie.randomoccurrences.OccurrenceManager
+import me.cookie.randomoccurrences.RandomOccurrences
 import me.cookie.randomoccurrences.occurrences.events.EntityKillOccurrence
 import org.bukkit.entity.Creeper
 import org.bukkit.entity.EntityType
 import org.bukkit.event.entity.EntityDeathEvent
-import org.bukkit.plugin.java.JavaPlugin
 
-class CreeperSlayer(plugin: JavaPlugin, occurrenceManager: OccurrenceManager):
-    Occurrence(plugin, occurrenceManager, "creeper-slayer", "Creeper Slayer"),
+class CreeperSlayer(plugin: RandomOccurrences, occurrenceManager: OccurrenceManager):
+    Occurrence(plugin, occurrenceManager, "creeper-slayer", plugin.messages.creeperSlayer),
     EntityKillOccurrence {
 
-    override val description: List<String> = listOf(
-        "#4d4d4dKill the most creepers to win!",
-        "#4d4d4dCreepers are worth 1 point while charged ones are 10!"
-    )
+    override var description: List<String> = plugin.messages.creeperSlayerDescription
 
     override fun occur() {
         return

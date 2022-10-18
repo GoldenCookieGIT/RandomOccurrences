@@ -2,16 +2,14 @@ package me.cookie.randomoccurrences.occurrences
 
 import me.cookie.randomoccurrences.Occurrence
 import me.cookie.randomoccurrences.OccurrenceManager
+import me.cookie.randomoccurrences.RandomOccurrences
 import me.cookie.randomoccurrences.occurrences.events.PlayerJumpOccurrence
 import org.bukkit.entity.Player
-import org.bukkit.plugin.java.JavaPlugin
 
-class Jumper(plugin: JavaPlugin, occurrenceManager: OccurrenceManager):
-    Occurrence(plugin, occurrenceManager, "jumper", "Jumper"), PlayerJumpOccurrence {
+class Jumper(plugin: RandomOccurrences, occurrenceManager: OccurrenceManager):
+    Occurrence(plugin, occurrenceManager, "jumper", plugin.messages.jumper), PlayerJumpOccurrence {
 
-    override val description: List<String> = listOf(
-        "#4d4d4dJump the most times to win!",
-    )
+    override var description: List<String> = plugin.messages.jumperDescription
 
     override fun occur() {
         return

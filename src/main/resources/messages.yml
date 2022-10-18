@@ -1,0 +1,54 @@
+header: "#4a4a4a--=-=-=-=-=-=-=-=-=-=-=-=-=-=-=--"
+footer: "#4a4a4a--=-=-=-=-=-=-=-=-=-=-=-=-=-=-=--"
+occurrence-start: "#07f543(friendlyName) #808080has started"
+occurrence-end: "#07f543(friendlyName) #808080has ended"
+
+# What shows up when an occurrence ends
+occurrence-leaderboard:
+  - "#f0c711 1#b5b5b5. #f0c711(first)#b5b5b5 - #ea00ff(firstScore)"
+  - "#b5b5b5 2#b5b5b5. #b5b5b5(second)#b5b5b5 - #ea00ff(secondScore)"
+  - "#CD7F32 3#b5b5b5. #CD7F32(third)#b5b5b5 - #ea00ff(thirdScore)"
+
+# Friendly names for the occurrences
+creeper-slayer: "Creeper Slayer"
+damage-dealer: "Damage Dealer"
+fishing-pros: "Fishing Pros"
+gold-miner: "Gold Miner"
+jumper: "Jumper"
+leaf-cutter: "Leaf Cutter"
+lumberjack: "Lumberjack"
+masochist: "Masochist"
+master-builders: "Master Builders"
+stone-miner: "Stone Miner"
+
+# Occurrence descriptions
+creeper-slayer-description:
+  - "Kill the most creepers to win!"
+  - "Creepers are worth 1 point while charged creepers are worth 10!"
+
+damage-dealer-description:
+  - "Deal the most damage to win!"
+
+fishing-pros-description:
+  - "Fish up the most items to win!"
+
+gold-miner-description:
+  - "Mine the most gold to win!"
+
+jumper-description:
+  - "Jump the most times to win!"
+
+leaf-cutter-description:
+  - "Cut the most leaves to win!"
+
+lumberjack-description:
+  - "Chop down the most logs to win!"
+
+masochist-description:
+  - "Take the most damage to win!"
+
+master-builders-description:
+  - "Place the most blocks to win!"
+
+stone-miner-description:
+  - "Mine the most stone to win!"

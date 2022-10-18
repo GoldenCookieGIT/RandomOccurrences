@@ -2,16 +2,14 @@ package me.cookie.randomoccurrences.occurrences
 
 import me.cookie.randomoccurrences.Occurrence
 import me.cookie.randomoccurrences.OccurrenceManager
+import me.cookie.randomoccurrences.RandomOccurrences
 import me.cookie.randomoccurrences.occurrences.events.BlockPlaceOccurrence
 import org.bukkit.event.block.BlockPlaceEvent
-import org.bukkit.plugin.java.JavaPlugin
 
-class MasterBuilders(plugin: JavaPlugin, occurrenceManager: OccurrenceManager):
-    Occurrence(plugin, occurrenceManager, "master-builders", "Master Builders"), BlockPlaceOccurrence {
+class MasterBuilders(plugin: RandomOccurrences, occurrenceManager: OccurrenceManager):
+    Occurrence(plugin, occurrenceManager, "master-builders", plugin.messages.masterBuilders), BlockPlaceOccurrence {
 
-    override val description: List<String> = listOf(
-        "#4d4d4dPlace the most blocks to win!",
-    )
+    override var description: List<String> = plugin.messages.masterBuildersDescription
 
     override fun occur() {
         return

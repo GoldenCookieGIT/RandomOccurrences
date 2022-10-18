@@ -5,15 +5,20 @@ import org.bukkit.Bukkit
 import org.bukkit.Material
 import org.bukkit.enchantments.Enchantment
 import org.bukkit.inventory.ItemStack
-import org.bukkit.plugin.java.JavaPlugin
 import org.bukkit.scheduler.BukkitRunnable
 
-class OccurrenceManager(val plugin: JavaPlugin) {
+class OccurrenceManager(val plugin: RandomOccurrences) {
 
     companion object {
         val occurrences = mutableListOf<Occurrence>()
         val items = mutableMapOf<String, ItemReward>()
         val commands = mutableMapOf<String, CommandReward>()
+    }
+
+    init {
+        compileRewards()
+        registerOccurrences()
+        startDowntime()
     }
 
     private val downTime: Long = plugin.config.getInt("down-time").toLong() * 60 /* to seconds */ * 20 /* to ticks */
@@ -32,25 +37,28 @@ class OccurrenceManager(val plugin: JavaPlugin) {
             return
         }
 
-        randomOccurrence.start()
+        setOccurrence(randomOccurrence)
     }
 
-    init {
-        compileRewards()
-        registerOccurrences()
-        startDowntime()
+    fun setOccurrence(occurrence: Occurrence) {
+        currentOccurrence?.end()
+        downtimeTask?.cancel()
+        currentOccurrence = occurrence
+        occurrence.start()
     }
 
+    private var downtimeTask: BukkitRunnable? = null
     fun startDowntime(){
-        object: BukkitRunnable() {
+        downtimeTask = object: BukkitRunnable() {
             override fun run() {
-                if (currentOccurrence == null && Bukkit.getOnlinePlayers().size >= plugin.config.getInt("minimum-players")) // only pick an occurrence if there is none active, and there's enough players online)
+                if (currentOccurrence == null && Bukkit.getOnlinePlayers().size >= plugin.config.getInt("minimum-players")) // only pick an occurrence if there is none active, and there's enough players online
                     pickOccurrence()
                 else
                     startDowntime()
 
             }
-        }.runTaskLater(plugin, downTime)
+        }
+        downtimeTask!!.runTaskLater(plugin, downTime)
     }
 
     fun getRewards(configName: String): Map<Int, Array<Reward>> {
@@ -115,7 +123,6 @@ class OccurrenceManager(val plugin: JavaPlugin) {
 
             if (configSection.contains("item", true)) {
                 val itemSection = configSection.getConfigurationSection("item")!!
-                plugin.logger.warning("No items found in config for reward: $configReward")
                 val material = Material.valueOf(itemSection.getString("material", "AIR")!!)
                 val amount = itemSection.getInt("amount", 1)
                 val itemName = itemSection.getString("item-name", "#ff0000Unknown")!!.formatHexColors()

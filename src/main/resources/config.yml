@@ -1,6 +1,7 @@
 update-checker: PATCH # either MINOR, PATCH or OFF (Notifies players with OP permissions when a new update is available)
 
 bossbar: true
+
 minimum-players: 3 # Minimum amount of players required to start an occurrence
 down-time: 1 # time in minutes between occurrences (starts timer after last occurrence has ended)
 

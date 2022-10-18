@@ -4,40 +4,38 @@ import org.bukkit.Bukkit
 import org.bukkit.boss.BarColor
 import org.bukkit.boss.BarStyle
 import org.bukkit.entity.Player
-import org.bukkit.plugin.java.JavaPlugin
 import org.bukkit.scheduler.BukkitRunnable
 import java.util.*
 
 abstract class Occurrence(
-    val plugin: JavaPlugin,
+    val plugin: RandomOccurrences,
     val occurrenceManager: OccurrenceManager,
     val configName: String,
-    val friendlyName: String
-    ) {
+    var friendlyName: String) {
 
-    abstract val description: List<String>
+    abstract var description: List<String>
     abstract fun occur() // start logic, occurrence specific
     abstract fun cleanup() // cleanup logic, occurrence specific
 
     val playerScore = mutableMapOf<UUID, Int?>()
     val isEnabled = plugin.config.getBoolean("occurrences.$configName.enabled")
-    val giveParticipationAwards = plugin.config.getStringList("occurrences.$configName.participation-awards").isNotEmpty()
+    private val giveParticipationAwards = plugin.config.getStringList("occurrences.$configName.participation-awards").isNotEmpty()
     // val spaces = 13 - friendlyName.length
     /* length in minutes of this occurrence */
     private val time: Long = plugin.config.getInt("occurrences.$configName.time").toLong() * 1200 /* from minutes to ticks */
-    val rewardMap: Map<Int /* leaderboard place */, Array<Reward> /* rewards to give */> = occurrenceManager.getRewards(configName)
+    private val rewardMap: Map<Int /* leaderboard place */, Array<Reward> /* rewards to give */> = occurrenceManager.getRewards(configName)
     val bossBar = Bukkit.getServer()
         .createBossBar("Current occurrence: $friendlyName", BarColor.BLUE, BarStyle.SOLID)
     fun start() {
-        occurrenceManager.currentOccurrence = this
         Bukkit.getServer().onlinePlayers.forEach { player ->
-            player.sendMessage("#4a4a4a--=-=-=-=-=-=-=-=-=-=-=-=-=-=-=--".formatHexColors())
-            player.sendMessage("       #07f543$friendlyName #808080has started".formatHexColors())
+            player.sendMessage(plugin.messages.header.formatHexColors())
+            player.sendMessage("       ${plugin.messages.occurrenceStart
+                .replace("(friendlyName)", friendlyName)}".formatHexColors())
             description.forEach {
-                player.sendMessage("    #808080$it".formatHexColors())
+                player.sendMessage("    #4d4d4d$it".formatHexColors())
             }
             player.sendMessage("")
-            player.sendMessage("#4a4a4a--=-=-=-=-=-=-=-=-=-=-=-=-=-=-=--".formatHexColors())
+            player.sendMessage(plugin.messages.footer.formatHexColors())
         }
 
         startTimer()
@@ -73,20 +71,31 @@ abstract class Occurrence(
             val third = sortedMap.keys.toList().getOrNull(2)?.let { Bukkit.getPlayer(it)?.name } ?: "Nobody"
             val thirdScore = sortedMap.values.toList().getOrElse(2) { 0 } ?: 0
 
-            player.sendMessage("#4a4a4a--=-=-=-=-=-=-=-=-=-=-=-=-=-=-=--".formatHexColors())
-            player.sendMessage("       #07f543$friendlyName #808080has ended".formatHexColors())
+            player.sendMessage(plugin.messages.header.formatHexColors())
+            player.sendMessage("       ${plugin.messages.occurrenceEnd
+                .replace("(friendlyName)", friendlyName)}".formatHexColors())
             player.sendMessage("")
-            player.sendMessage("#f0c711 1#b5b5b5. #f0c711$first#b5b5b5 - #ea00ff$firstScore".formatHexColors())
-            player.sendMessage("#b5b5b5 2#b5b5b5. #b5b5b5$second#b5b5b5 - #ea00ff$secondScore".formatHexColors())
-            player.sendMessage("#CD7F32 3#b5b5b5. #CD7F32$third#b5b5b5 - #ea00ff$thirdScore".formatHexColors())
+            plugin.messages.occurrenceLeaderboard.forEach {
+                player.sendMessage(
+                    it
+                        .replace("(first)", first)
+                        .replace("(firstScore)", firstScore.toString())
+                        .replace("(second)", second)
+                        .replace("(secondScore)", secondScore.toString())
+                        .replace("(third)", third)
+                        .replace("(thirdScore)", thirdScore.toString())
+                        .formatHexColors()
+                )
+            }
             player.sendMessage("")
-            player.sendMessage("#4a4a4a--=-=-=-=-=-=-=-=-=-=-=-=-=-=-=--".formatHexColors())
+            player.sendMessage(plugin.messages.footer.formatHexColors())
         }
 
         bossBar.isVisible = false
         bossBar.removeAll()
 
         cleanup()
+        bossBarTask?.cancel()
         playerScore.clear()
         occurrenceManager.currentOccurrence = null
         occurrenceManager.startDowntime()
@@ -108,12 +117,13 @@ abstract class Occurrence(
         }.runTaskLater(plugin, time)
     }
 
+    private var bossBarTask: BukkitRunnable? = null
     private fun startBossbar(){
-        if(plugin.config.getBoolean("bossbar", false)) return
+        if(!plugin.config.getBoolean("bossbar", false)) return
         var timer = time.toDouble()
         bossBar.isVisible = true
         bossBar.progress = 1.0
-        object: BukkitRunnable() {
+        bossBarTask = object: BukkitRunnable() {
             override fun run() {
                 playerScore.keys.forEach {
                     val player = Bukkit.getPlayer(it) ?: return@forEach
@@ -126,7 +136,6 @@ abstract class Occurrence(
                     color = "#db3b2a"
                 }
 
-
                 bossBar.setTitle(
                     "#c2c2c2Current occurrence: &l$color$friendlyName".formatHexColors()
                 )
@@ -135,6 +144,7 @@ abstract class Occurrence(
                 if(timer <= 0)
                     cancel()
             }
-        }.runTaskTimer(plugin, 20, 20)
+        }
+        bossBarTask!!.runTaskTimer(plugin, 20, 20)
     }
 }
