@@ -21,7 +21,7 @@ class StoneMiner(plugin: RandomOccurrences, occurrenceManager: OccurrenceManager
     }
 
     override fun onBlockBreak(event: BlockBreakEvent) {
-        if (event.block.type == Material.STONE || event.block.type == Material.DEEPSLATE){
+        if (event.block.type == Material.STONE || event.block.type == Material.DEEPSLATE) {
             addScore(event.player, 1)
         }
     }

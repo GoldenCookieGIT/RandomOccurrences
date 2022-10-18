@@ -55,7 +55,7 @@ abstract class Occurrence(
                     it.itemReward.let { item -> item?.giveItem(player) }
                     it.commandReward.let { command -> command?.performCommand(player) }
                 }
-            }else if (score != 0 && giveParticipationAwards){
+            }else if (score != 0 && giveParticipationAwards) {
                 plugin.config.getStringList("occurrences.$configName.participation-awards").forEach {
                     OccurrenceManager.items[it]?.giveItem(player)
                     OccurrenceManager.commands[it]?.performCommand(player)
@@ -102,7 +102,7 @@ abstract class Occurrence(
     }
 
     fun addScore(player: Player, score: Int) {
-        if (!playerScore.containsKey(player.uniqueId)){
+        if (!playerScore.containsKey(player.uniqueId)) {
             playerScore[player.uniqueId] = 0
         }
         playerScore[player.uniqueId] = playerScore[player.uniqueId]!! + score
@@ -118,8 +118,8 @@ abstract class Occurrence(
     }
 
     private var bossBarTask: BukkitRunnable? = null
-    private fun startBossbar(){
-        if(!plugin.config.getBoolean("bossbar", false)) return
+    private fun startBossbar() {
+        if (!plugin.config.getBoolean("bossbar", false)) return
         var timer = time.toDouble()
         bossBar.isVisible = true
         bossBar.progress = 1.0
@@ -127,12 +127,12 @@ abstract class Occurrence(
             override fun run() {
                 playerScore.keys.forEach {
                     val player = Bukkit.getPlayer(it) ?: return@forEach
-                    if(!bossBar.players.contains(player))
+                    if (!bossBar.players.contains(player))
                         bossBar.addPlayer(player)
                 }
 
                 var color = "#07f543"
-                if(((timer/20) % 2) == 0.0){
+                if (((timer/20) % 2) == 0.0) {
                     color = "#db3b2a"
                 }
 
@@ -141,7 +141,7 @@ abstract class Occurrence(
                 )
                 bossBar.progress = (timer/time)
                 timer -= 20
-                if(timer <= 0)
+                if (timer <= 0)
                     cancel()
             }
         }

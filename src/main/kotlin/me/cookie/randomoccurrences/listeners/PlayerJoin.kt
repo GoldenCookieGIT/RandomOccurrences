@@ -17,7 +17,7 @@ class PlayerJoin(private val randomOccurrences: RandomOccurrences): Listener {
         if (!player.isOp) return
         getVersion(randomOccurrences, "102217") {
             if (versionCheck == ("PATCH")) {
-                if (it != version){
+                if (it != version) {
                     warnOutdated(player, it)
                 }
             } else {

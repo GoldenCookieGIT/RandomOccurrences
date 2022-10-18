@@ -52,7 +52,7 @@ class RandomOccurrences: JavaPlugin() {
         server.pluginManager.registerEvents(PlayerFish(occurrenceManager), this)
         server.pluginManager.registerEvents(PlayerMove(occurrenceManager), this)
 
-        if (config.getString("update-checker", "OFF") != "OFF"){
+        if (config.getString("update-checker", "OFF") != "OFF") {
             server.pluginManager.registerEvents(PlayerJoin(this), this)
         }
     }

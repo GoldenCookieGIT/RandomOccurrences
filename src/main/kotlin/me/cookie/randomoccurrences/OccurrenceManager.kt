@@ -48,7 +48,7 @@ class OccurrenceManager(val plugin: RandomOccurrences) {
     }
 
     private var downtimeTask: BukkitRunnable? = null
-    fun startDowntime(){
+    fun startDowntime() {
         downtimeTask = object: BukkitRunnable() {
             override fun run() {
                 if (currentOccurrence == null && Bukkit.getOnlinePlayers().size >= plugin.config.getInt("minimum-players")) // only pick an occurrence if there is none active, and there's enough players online
@@ -111,7 +111,7 @@ class OccurrenceManager(val plugin: RandomOccurrences) {
         occurrences.add(occurrence)
     }*/
 
-    private fun compileRewards(){
+    private fun compileRewards() {
         val config = plugin.config
         val configRewards = config.getConfigurationSection("rewards")
         if (configRewards == null) {
