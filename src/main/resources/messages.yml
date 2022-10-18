@@ -21,6 +21,10 @@ masochist: "Masochist"
 master-builders: "Master Builders"
 stone-miner: "Stone Miner"
 dj: "DJ"
+hoarder: "Hoarder"
+dropper: "Dropper"
+smelter: "Smelter"
+pyrotechnic: "Pyrotechnic"
 
 # Occurrence descriptions
 creeper-slayer-description:
@@ -56,3 +60,15 @@ stone-miner-description:
 
 dj-description:
   - "Play the most notes to win!"
+
+hoarder-description:
+  - "Pick up the most items to win!"
+
+dropper-description:
+  - "Drop the most items to win!"
+
+smelter-description:
+  - "Smelt the most things to win!"
+
+pyrotechnic-description:
+  - "Set the most things on fire to win!"

@@ -39,6 +39,18 @@ class Messages {
     val dj
         get() = map["dj"]!!
 
+    val hoarder
+        get() = map["hoarder"]!!
+
+    val dropper
+        get() = map["dropper"]!!
+
+    val smelter
+        get() = map["smelter"]!!
+
+    val pyrotechnic
+        get() = map["pyrotechnic"]!!
+
     // occurrence descriptions
     val creeperSlayerDescription
         get() = map["creeper-slayer-description"]!!.split("\n")
@@ -62,4 +74,13 @@ class Messages {
         get() = map["stone-miner-description"]!!.split("\n")
     val djDescription
         get() = map["dj-description"]!!.split("\n")
+    val hoarderDescription
+        get() = map["hoarder-description"]!!.split("\n")
+    val dropperDescription
+        get() = map["dropper-description"]!!.split("\n")
+    val smelterDescription
+        get() = map["smelter-description"]!!.split("\n")
+    val pyrotechnicDescription
+        get() = map["pyrotechnic-description"]!!.split("\n")
+
 }

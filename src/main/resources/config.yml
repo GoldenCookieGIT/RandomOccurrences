@@ -150,6 +150,58 @@ occurrences:
         - CoolItem
     participation-awards:
       - MehItem
+
+  hoarder:
+    enabled: true
+    time: 1
+    rewards:
+      1:
+        - CoolItem
+      2:
+        - CoolItem
+      3:
+        - CoolItem
+    participation-awards:
+      - MehItem
+
+  dropper:
+    enabled: true
+    time: 1
+    rewards:
+      1:
+        - CoolItem
+      2:
+        - CoolItem
+      3:
+        - CoolItem
+    participation-awards:
+      - MehItem
+
+  smelter:
+    enabled: true
+    time: 1
+    rewards:
+      1:
+        - CoolItem
+      2:
+        - CoolItem
+      3:
+        - CoolItem
+    participation-awards:
+      - MehItem
+
+  pyrotechnic:
+    enabled: false
+    time: 1
+    rewards:
+      1:
+        - CoolItem
+      2:
+        - CoolItem
+      3:
+        - CoolItem
+    participation-awards:
+      - MehItem
   # ...
 
 rewards:

@@ -64,6 +64,9 @@ class RandomOccurrences: JavaPlugin() {
         server.pluginManager.registerEvents(PlayerFish(occurrenceManager), this)
         server.pluginManager.registerEvents(PlayerMove(occurrenceManager), this)
         server.pluginManager.registerEvents(PlayerInteract(occurrenceManager), this)
+        server.pluginManager.registerEvents(EntityPickUpItem(occurrenceManager), this)
+        server.pluginManager.registerEvents(PlayerDropItem(occurrenceManager), this)
+        server.pluginManager.registerEvents(PlayerInventoryClick(occurrenceManager), this)
     }
 
     private fun registerCommands() {
