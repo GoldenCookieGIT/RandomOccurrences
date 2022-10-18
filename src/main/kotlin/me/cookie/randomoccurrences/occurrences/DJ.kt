@@ -11,7 +11,7 @@ class DJ(plugin: RandomOccurrences, occurrenceManager: OccurrenceManager):
     Occurrence(
         plugin,
         occurrenceManager,
-        "gold-miner",
+        "dj",
         plugin.messages.dj,
         plugin.messages.djDescription
     ), PlayerInteractOccurrence {
