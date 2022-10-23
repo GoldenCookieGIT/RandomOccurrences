@@ -9,7 +9,6 @@ import org.bukkit.event.player.PlayerDropItemEvent
 class PlayerDropItem(private val occurrenceManager: OccurrenceManager): Listener {
     @EventHandler
     fun onPlayerDropItem(event: PlayerDropItemEvent) {
-        println("dropped item")
         val currentOccurrence = occurrenceManager.currentOccurrence
         if (currentOccurrence is PlayerDropItemOccurrence) {
             currentOccurrence.onPlayerDropItem(event)
