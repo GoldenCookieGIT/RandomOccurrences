@@ -5,6 +5,12 @@ bossbar: true
 minimum-players: 3 # Minimum amount of players required to start an occurrence
 down-time: 1 # time in minutes between occurrences (starts timer after last occurrence has ended)
 
+occurrence-start-commands:
+  - "playsound entity.experience_orb.pickup player @a ~ ~ ~ 1 1.4"
+
+occurrence-end-commands:
+  - "playsound entity.player.levelup player @a ~ ~ ~ 1 1.4"
+
 # Do not modify the names of the occurrences, only change enabled to true or false to enable/disable them
 occurrences:
   creeper-slayer:
