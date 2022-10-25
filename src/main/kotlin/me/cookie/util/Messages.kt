@@ -14,6 +14,8 @@ class Messages {
         get() = map["occurrence-end"]!!
     val occurrenceLeaderboard
         get() = (map["occurrence-leaderboard"]!!.split("\n"))
+    val occurrenceLeaderboardPlayerScore
+        get() = (map["occurrence-leaderboard-player-score"]!!.split("\n"))
 
     // occurrence names
     val creeperSlayer

@@ -62,10 +62,9 @@ abstract class Occurrence(
         var place = 1
 
         sortedMap.forEach { (uuid, score) ->
-            place++
             val player = Bukkit.getPlayer(uuid) ?: return@forEach
             if (rewardMap.containsKey(place)) {
-                rewardMap[place-1]!!.forEach {
+                rewardMap[place]!!.forEach {
                     it.itemReward.let { item -> item?.giveItem(player) }
                     it.executableCommandReward.let { command -> command?.performCommand(player) }
                 }
@@ -89,9 +88,24 @@ abstract class Occurrence(
             player.sendMessage("       ${plugin.messages.occurrenceEnd
                 .replace("(friendlyName)", friendlyName)}".formatHexColors())
             player.sendMessage("")
-            plugin.messages.occurrenceLeaderboard.forEach {
+            plugin.messages.occurrenceLeaderboard.forEach leaderboardLoop@{ leaderboardMsg ->
+                if (leaderboardMsg.contains("(playerScore)")) {
+                    if (place >= 4) {
+                        plugin.messages.occurrenceLeaderboardPlayerScore.forEach {
+                            player.sendMessage(it
+                                .replace("(playerPlace)", place.toString())
+                                .replace("(playerScore)", score.toString())
+                                .replace("(playerName)", player.name)
+                                .formatHexColors()
+                            )
+                        }
+                    } else {
+                        player.sendMessage("")
+                    }
+                    return@leaderboardLoop
+                }
                 player.sendMessage(
-                    it
+                    leaderboardMsg
                         .replace("(first)", first)
                         .replace("(firstScore)", firstScore.toString())
                         .replace("(second)", second)
@@ -101,8 +115,13 @@ abstract class Occurrence(
                         .formatHexColors()
                 )
             }
-            player.sendMessage("")
+            println(place)
+            println(player.name)
+            // see if player is top 3
+
             player.sendMessage(plugin.messages.footer.formatHexColors())
+
+            place++
         }
 
         bossBar.isVisible = false

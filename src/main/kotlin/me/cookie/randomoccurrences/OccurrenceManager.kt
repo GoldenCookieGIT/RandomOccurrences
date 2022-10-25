@@ -203,6 +203,8 @@ class OccurrenceManager(val plugin: RandomOccurrences) {
 
     private fun compileExecutableCommand(commandSection: ConfigurationSection): ExecutableCommand {
         val command = commandSection.getString("run")!!.apply {
+            if (isEmpty()) return@apply
+
             if (this[0] != '/')
                 padStart(1, '/')
         }

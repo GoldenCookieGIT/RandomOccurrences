@@ -12,7 +12,7 @@ occurrence-start-events:
     pitch: 1.4
   commands:
     help:
-      run: "/help"
+      run: ""
       as: SERVER
       ignore-permissions: false
 
@@ -23,7 +23,7 @@ occurrence-end-events:
     pitch: 1.4
   commands:
     help:
-        run: "/help"
+        run: ""
         as: SERVER
         ignore-permissions: false
 

@@ -5,9 +5,15 @@ occurrence-end: "#07f543(friendlyName) #808080has ended"
 
 # What shows up when an occurrence ends
 occurrence-leaderboard:
-  - "#f0c711 1#b5b5b5. #f0c711(first)#b5b5b5 - #ea00ff(firstScore)"
-  - "#b5b5b5 2#b5b5b5. #b5b5b5(second)#b5b5b5 - #ea00ff(secondScore)"
-  - "#CD7F32 3#b5b5b5. #CD7F32(third)#b5b5b5 - #ea00ff(thirdScore)"
+  - "#f0c711 1#b5b5b5. #f0c711(first) #b5b5b5- #ea00ff(firstScore)"
+  - "#b5b5b5 2. #C0C0C0(second) #b5b5b5- #ea00ff(secondScore)"
+  - "#CD7F32 3#b5b5b5. #CD7F32(third) #b5b5b5- #ea00ff(thirdScore)"
+  - "(playerScore)" # if the player isn't top 3 this message will be shown, message grabbed from "occurrence-leaderboard-player-score"
+
+occurrence-leaderboard-player-score:
+  - "#b5b5b5 ..."
+  - "#b5b5b5 (playerPlace). #969696(playerName) - #ea00ff(playerScore)"
+
 
 # Friendly names for the occurrences
 creeper-slayer: "Creeper Slayer"
