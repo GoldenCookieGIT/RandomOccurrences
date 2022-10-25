@@ -20,6 +20,8 @@ class PlayerMove(private val occurrenceManager: OccurrenceManager): Listener { /
     fun onPlayerMove(event: PlayerMoveEvent) {
         val player = event.player
 
+        val currentOccurrence = occurrenceManager.currentOccurrence ?: return
+
         if (player.velocity.y > 0) {
             var jumpVelocity = 0.41999998688697815
             if (player.hasPotionEffect(PotionEffectType.JUMP)) {
@@ -37,7 +39,6 @@ class PlayerMove(private val occurrenceManager: OccurrenceManager): Listener { /
             prevPlayersOnGround.remove(player.uniqueId)
         }
 
-        val currentOccurrence = occurrenceManager.currentOccurrence ?: return
         if (currentOccurrence is PlayerMoveOccurrence) {
             currentOccurrence.onPlayerMove(event)
         }

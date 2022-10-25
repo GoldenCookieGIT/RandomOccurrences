@@ -58,7 +58,12 @@ abstract class Occurrence(
             occurrenceManager.occurrenceEndSound?.play(player)
         }
 
-        val sortedMap = playerScore.toList().sortedBy { (_, value) -> value }.reversed().toMap()
+        val sortedMap = playerScore.toList().filter {
+            (Bukkit.getPlayer(it.first) != null
+                    && Bukkit.getPlayer(it.first)!!.isOnline
+                    && !occurrenceManager.worldBlackList.contains(Bukkit.getPlayer(it.first)!!.world.name))
+        }.sortedBy { (_, value) -> value }.reversed().toMap()
+
         var place = 1
 
         sortedMap.forEach { (uuid, score) ->
@@ -131,6 +136,8 @@ abstract class Occurrence(
     }
 
     fun addScore(player: Player, score: Int) {
+        if (occurrenceManager.worldBlackList.contains(player.world.name)) return
+
         if (!playerScore.containsKey(player.uniqueId)) {
             playerScore[player.uniqueId] = 0
         }

@@ -28,7 +28,7 @@ class PlayerJoin(private val randomOccurrences: RandomOccurrences): Listener {
         }
     }
 
-    fun warnOutdated(player: Player, latest: String) {
+    private fun warnOutdated(player: Player, latest: String) {
         player.sendMessage("${ChatColor.RED}[RandomOccurrences] You are using an outdated version")
         player.sendMessage("")
         player.sendMessage("${ChatColor.RED}Current: {${randomOccurrences.description.version}} Latest: {$latest}")

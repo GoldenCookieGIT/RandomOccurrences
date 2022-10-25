@@ -24,6 +24,8 @@ class OccurrenceManager(val plugin: RandomOccurrences) {
     var occurrenceStartSound: PlayableSound? = null
     var occurrenceEndSound: PlayableSound? = null
 
+    val worldBlackList = plugin.config.getStringList("world-blacklist")
+
     init {
         compileConfig()
         registerOccurrences()
