@@ -1,9 +1,9 @@
-package me.cookie.randomoccurrences
+package me.cookie.util
 
 import org.bukkit.Bukkit
 import org.bukkit.entity.Player
 
-class CommandReward(private val command: String, private val executor: Executor, private val ignorePerms: Boolean) {
+class ExecutableCommand(private val command: String, private val executor: Executor, private val ignorePerms: Boolean) {
     fun performCommand(player: Player): Boolean {
         val commandString = command.replace("%player_name%", player.name)
         if (executor == Executor.PLAYER) {

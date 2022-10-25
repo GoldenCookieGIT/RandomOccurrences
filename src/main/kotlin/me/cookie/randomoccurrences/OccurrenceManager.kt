@@ -1,8 +1,11 @@
 package me.cookie.randomoccurrences
 
 import me.cookie.randomoccurrences.occurrences.*
+import me.cookie.util.*
 import org.bukkit.Bukkit
 import org.bukkit.Material
+import org.bukkit.Sound
+import org.bukkit.configuration.ConfigurationSection
 import org.bukkit.enchantments.Enchantment
 import org.bukkit.inventory.ItemStack
 import org.bukkit.scheduler.BukkitRunnable
@@ -12,11 +15,17 @@ class OccurrenceManager(val plugin: RandomOccurrences) {
     companion object {
         val occurrences = mutableListOf<Occurrence>()
         val items = mutableMapOf<String, ItemReward>()
-        val commands = mutableMapOf<String, CommandReward>()
+        val commands = mutableMapOf<String, ExecutableCommand>()
     }
 
+    val occurrenceStartCommands = mutableListOf<ExecutableCommand>()
+    val occurrenceEndCommands = mutableListOf<ExecutableCommand>()
+
+    var occurrenceStartSound: PlayableSound? = null
+    var occurrenceEndSound: PlayableSound? = null
+
     init {
-        compileRewards()
+        compileConfig()
         registerOccurrences()
         startDowntime()
     }
@@ -116,7 +125,7 @@ class OccurrenceManager(val plugin: RandomOccurrences) {
         occurrences.add(occurrence)
     }*/
 
-    private fun compileRewards() {
+    private fun compileConfig() {
         val config = plugin.config
         val configRewards = config.getConfigurationSection("rewards")
         if (configRewards == null) {
@@ -156,15 +165,50 @@ class OccurrenceManager(val plugin: RandomOccurrences) {
 
             if (configSection.contains("command", true)) {
                 val commandSection = configSection.getConfigurationSection("command")!!
-                val command = commandSection.getString("run", "/help")!!.apply {
-                    if (this[0] != '/')
-                        this.padStart(1, '/')
-                }
-                val executor = commandSection.getString("as", "PLAYER")!!.uppercase()
-                val ignorePerms = commandSection.getBoolean("ignore-permissions", false)
-                commands[configReward] = CommandReward(command, Executor.valueOf(executor), ignorePerms)
+                commands[configReward] = compileExecutableCommand(commandSection)
             }
-
         }
+
+        // Occurrence start/end events
+        config.getConfigurationSection("occurrence-start-events")!!.getKeys(false).forEach { event ->
+            config.getConfigurationSection("occurrence-start-events.commands")!!.getKeys(false).forEach { command ->
+                occurrenceStartCommands.add(compileExecutableCommand(
+                    config.getConfigurationSection("occurrence-start-events.commands.$command")!!
+                ))
+            }
+            config.getConfigurationSection("occurrence-start-events.sound")?.let {
+                occurrenceStartSound = PlayableSound(
+                    Sound.valueOf(it.getString("sound", "ENTITY_EXPERIENCE_ORB_PICKUP")!!),
+                    it.getDouble("volume", 1.0).toFloat(),
+                    it.getDouble("pitch", 1.0).toFloat()
+                )
+            }
+        }
+
+        config.getConfigurationSection("occurrence-end-events")!!.getKeys(false).forEach { event ->
+            config.getConfigurationSection("occurrence-end-events.commands")!!.getKeys(false).forEach { command ->
+                occurrenceEndCommands.add(compileExecutableCommand(
+                    config.getConfigurationSection("occurrence-end-events.commands.$command")!!
+                ))
+            }
+            config.getConfigurationSection("occurrence-end-events.sound")?.let {
+                occurrenceEndSound = PlayableSound(
+                    Sound.valueOf(it.getString("sound", "ENTITY_PLAYER_LEVELUP")!!),
+                    it.getDouble("volume", 1.0).toFloat(),
+                    it.getDouble("pitch", 1.0).toFloat()
+                )
+            }
+        }
+    }
+
+    private fun compileExecutableCommand(commandSection: ConfigurationSection): ExecutableCommand {
+        val command = commandSection.getString("run")!!.apply {
+            if (this[0] != '/')
+                padStart(1, '/')
+        }
+        val executor = Executor.valueOf(commandSection.getString("as", "PLAYER")!!.uppercase())
+        val ignorePerms = commandSection.getBoolean("ignore-perms", false)
+
+        return ExecutableCommand(command, executor, ignorePerms)
     }
 }

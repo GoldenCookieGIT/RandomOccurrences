@@ -1,5 +1,6 @@
 package me.cookie.randomoccurrences
 
+import me.cookie.util.Reward
 import org.bukkit.Bukkit
 import org.bukkit.boss.BarColor
 import org.bukkit.boss.BarStyle
@@ -27,7 +28,14 @@ abstract class Occurrence(
     val bossBar = Bukkit.getServer()
         .createBossBar("Current occurrence: $friendlyName", BarColor.BLUE, BarStyle.SOLID)
     fun start() {
-        Bukkit.getServer().onlinePlayers.forEach { player ->
+        Bukkit.getOnlinePlayers().forEach { player ->
+            occurrenceManager.occurrenceStartCommands.forEach { executableCommand ->
+                executableCommand.performCommand(player)
+            }
+            occurrenceManager.occurrenceStartSound?.play(player)
+        }
+
+        Bukkit.getOnlinePlayers().forEach { player ->
             player.sendMessage(plugin.messages.header.formatHexColors())
             player.sendMessage("       ${plugin.messages.occurrenceStart
                 .replace("(friendlyName)", friendlyName)}".formatHexColors())
@@ -43,17 +51,23 @@ abstract class Occurrence(
     }
 
     fun end() {
-        // Give rewards
-        // Send victory message
+        Bukkit.getOnlinePlayers().forEach { player ->
+            occurrenceManager.occurrenceEndCommands.forEach { executableCommand ->
+                executableCommand.performCommand(player)
+            }
+            occurrenceManager.occurrenceEndSound?.play(player)
+        }
+
         val sortedMap = playerScore.toList().sortedBy { (_, value) -> value }.reversed().toMap()
         var place = 1
+
         sortedMap.forEach { (uuid, score) ->
             place++
             val player = Bukkit.getPlayer(uuid) ?: return@forEach
             if (rewardMap.containsKey(place)) {
                 rewardMap[place-1]!!.forEach {
                     it.itemReward.let { item -> item?.giveItem(player) }
-                    it.commandReward.let { command -> command?.performCommand(player) }
+                    it.executableCommandReward.let { command -> command?.performCommand(player) }
                 }
             }else if (score != 0 && giveParticipationAwards) {
                 plugin.config.getStringList("occurrences.$configName.participation-awards").forEach {

@@ -1,21 +1,38 @@
-update-checker: PATCH # either MINOR, PATCH or OFF (Notifies players with OP permissions when a new update is available)
+update-checker: PATCH # Either MINOR, PATCH or OFF (Notifies players with OP permissions when a new update is available)
 
 bossbar: true
 
 minimum-players: 3 # Minimum amount of players required to start an occurrence
-down-time: 1 # time in minutes between occurrences (starts timer after last occurrence has ended)
+down-time: 1 # Time in minutes between occurrences (starts timer after last occurrence has ended)
 
-occurrence-start-commands:
-  - "playsound entity.experience_orb.pickup player @a ~ ~ ~ 1 1.4"
+occurrence-start-events:
+  sound:
+    sound: ENTITY_EXPERIENCE_ORB_PICKUP
+    volume: 1
+    pitch: 1.4
+  commands:
+    help:
+      run: "/help"
+      as: SERVER
+      ignore-permissions: false
 
-occurrence-end-commands:
-  - "playsound entity.player.levelup player @a ~ ~ ~ 1 1.4"
+occurrence-end-events:
+  sound:
+    sound: ENTITY_PLAYER_LEVELUP
+    volume: 1
+    pitch: 1.4
+  commands:
+    help:
+        run: "/help"
+        as: SERVER
+        ignore-permissions: false
+
 
 # Do not modify the names of the occurrences, only change enabled to true or false to enable/disable them
 occurrences:
   creeper-slayer:
-    enabled: true # if the occurrence is enabled or not.
-    time: 1 # in minutes how long the occurrence lasts.
+    enabled: true # If the occurrence is enabled or not.
+    time: 1 # In minutes how long the occurrence lasts.
     rewards:
       1: # 1st place
         - CoolItem
@@ -213,20 +230,20 @@ occurrences:
 rewards:
   CoolItem:
     item:
-      material: NETHERITE_SWORD # use https://hub.spigotmc.org/javadocs/bukkit/org/bukkit/Material.html to get item material
+      material: NETHERITE_SWORD # Use https://hub.spigotmc.org/javadocs/bukkit/org/bukkit/Material.html to get item material
       amount: 1
       item-name: "#ffb60aThis is a very cool item!" # Supports #ffffff hex color codes (does NOT support & codes)
       lore:
-        - "#ff0a0alore line 1" # also supports hex color codes
+        - "#ff0a0alore line 1" # Also supports hex color codes
         - "#ff0a0alore line 2"
-      enchantments: # use https://hub.spigotmc.org/javadocs/bukkit/org/bukkit/enchantments/Enchantment.html to get enchantment id (ENCHANTMENT:LEVEL)
+      enchantments: # Use https://hub.spigotmc.org/javadocs/bukkit/org/bukkit/enchantments/Enchantment.html to get enchantment id (ENCHANTMENT:LEVEL)
         - "DAMAGE_ALL:1"
         - "DAMAGE_UNDEAD:2"
         - "DAMAGE_ARTHROPODS:3"
-    command: # execute a command as a reward (you can use %player_name% to get the name of the player)
-      run: "/help" # the command to run
-      as: PLAYER # execute the command as the PLAYER or SERVER
-      ignore-perms: true # ignore player's permissions when executing the command (only applicable if as is set to PLAYER)
+    command: # Execute a command as a reward (you can use %player_name% to get the name of the player)
+      run: "/help" # The command to run
+      as: PLAYER # Execute the command as the PLAYER or SERVER
+      ignore-permissions: true # Ignore player's permissions when executing the command (only applicable if as is setto PLAYER)
   MehItem:
     item:
       material: WOODEN_SWORD

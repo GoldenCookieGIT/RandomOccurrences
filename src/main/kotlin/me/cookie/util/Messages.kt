@@ -1,4 +1,4 @@
-package me.cookie.randomoccurrences
+package me.cookie.util
 
 class Messages {
     val map = HashMap<String, String>()
