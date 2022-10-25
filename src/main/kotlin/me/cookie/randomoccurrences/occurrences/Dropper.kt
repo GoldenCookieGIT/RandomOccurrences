@@ -26,7 +26,6 @@ class Dropper(plugin: RandomOccurrences, occurrenceManager: OccurrenceManager):
 
     override fun onPlayerDropItem(event: PlayerDropItemEvent) {
         val item = event.itemDrop.itemStack
-        println(item.type)
         if (item.type == Material.AIR) return
 
         addScore(event.player, 1)

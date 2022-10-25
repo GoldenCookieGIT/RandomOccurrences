@@ -115,10 +115,6 @@ abstract class Occurrence(
                         .formatHexColors()
                 )
             }
-            println(place)
-            println(player.name)
-            // see if player is top 3
-
             player.sendMessage(plugin.messages.footer.formatHexColors())
 
             place++
