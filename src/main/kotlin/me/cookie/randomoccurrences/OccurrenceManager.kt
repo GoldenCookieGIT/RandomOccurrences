@@ -172,11 +172,13 @@ class OccurrenceManager(val plugin: RandomOccurrences) {
         }
 
         // Occurrence start/end events
-        config.getConfigurationSection("occurrence-start-events")!!.getKeys(false).forEach { event ->
-            config.getConfigurationSection("occurrence-start-events.commands")!!.getKeys(false).forEach { command ->
-                occurrenceStartCommands.add(compileExecutableCommand(
-                    config.getConfigurationSection("occurrence-start-events.commands.$command")!!
-                ))
+        config.getConfigurationSection("occurrence-start-events")!!.getKeys(false).forEach {
+            if(config.getConfigurationSection("occurrence-start-events.commands") != null){
+                config.getConfigurationSection("occurrence-start-events.commands")!!.getKeys(false).forEach { command ->
+                    occurrenceStartCommands.add(compileExecutableCommand(
+                        config.getConfigurationSection("occurrence-start-events.commands.$command")!!
+                    ))
+                }
             }
             config.getConfigurationSection("occurrence-start-events.sound")?.let {
                 occurrenceStartSound = PlayableSound(
@@ -187,11 +189,13 @@ class OccurrenceManager(val plugin: RandomOccurrences) {
             }
         }
 
-        config.getConfigurationSection("occurrence-end-events")!!.getKeys(false).forEach { event ->
-            config.getConfigurationSection("occurrence-end-events.commands")!!.getKeys(false).forEach { command ->
-                occurrenceEndCommands.add(compileExecutableCommand(
-                    config.getConfigurationSection("occurrence-end-events.commands.$command")!!
-                ))
+        config.getConfigurationSection("occurrence-end-events")!!.getKeys(false).forEach {
+            if(config.getConfigurationSection("occurrence-start-events.commands") != null){
+                config.getConfigurationSection("occurrence-end-events.commands")!!.getKeys(false).forEach { command ->
+                    occurrenceEndCommands.add(compileExecutableCommand(
+                            config.getConfigurationSection("occurrence-end-events.commands.$command")!!
+                    ))
+                }
             }
             config.getConfigurationSection("occurrence-end-events.sound")?.let {
                 occurrenceEndSound = PlayableSound(
