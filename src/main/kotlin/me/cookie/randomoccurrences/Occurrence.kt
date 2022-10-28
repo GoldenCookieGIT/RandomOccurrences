@@ -9,11 +9,11 @@ import org.bukkit.scheduler.BukkitRunnable
 import java.util.*
 
 abstract class Occurrence(
-    val plugin: RandomOccurrences,
-    val occurrenceManager: OccurrenceManager,
-    val configName: String,
-    var friendlyName: String,
-    var description: List<String>) {
+        val plugin: RandomOccurrences,
+        val occurrenceManager: OccurrenceManager,
+        val configName: String,
+        var friendlyName: String,
+        var description: List<String>) {
 
     abstract fun occur() // start logic, occurrence specific
     abstract fun cleanup() // cleanup logic, occurrence specific
@@ -26,7 +26,7 @@ abstract class Occurrence(
     private val time: Long = plugin.config.getInt("occurrences.$configName.time").toLong() * 1200 /* from minutes to ticks */
     private val rewardMap: Map<Int /* leaderboard place */, Array<Reward> /* rewards to give */> = occurrenceManager.getRewards(configName)
     val bossBar = Bukkit.getServer()
-        .createBossBar("Current occurrence: $friendlyName", BarColor.BLUE, BarStyle.SOLID)
+            .createBossBar(plugin.messages.bossBarTitle.formatHexColors() + friendlyName, BarColor.BLUE, BarStyle.SOLID)
     fun start() {
         Bukkit.getOnlinePlayers().forEach { player ->
             occurrenceManager.occurrenceStartCommands.forEach { executableCommand ->
@@ -38,7 +38,7 @@ abstract class Occurrence(
         Bukkit.getOnlinePlayers().forEach { player ->
             player.sendMessage(plugin.messages.header.formatHexColors())
             player.sendMessage("       ${plugin.messages.occurrenceStart
-                .replace("(friendlyName)", friendlyName)}".formatHexColors())
+                    .replace("(friendlyName)", friendlyName)}".formatHexColors())
             description.forEach {
                 player.sendMessage("    #4d4d4d$it".formatHexColors())
             }
@@ -91,17 +91,17 @@ abstract class Occurrence(
 
             player.sendMessage(plugin.messages.header.formatHexColors())
             player.sendMessage("       ${plugin.messages.occurrenceEnd
-                .replace("(friendlyName)", friendlyName)}".formatHexColors())
+                    .replace("(friendlyName)", friendlyName)}".formatHexColors())
             player.sendMessage("")
             plugin.messages.occurrenceLeaderboard.forEach leaderboardLoop@{ leaderboardMsg ->
                 if (leaderboardMsg.contains("(playerScore)")) {
                     if (place >= 4) {
                         plugin.messages.occurrenceLeaderboardPlayerScore.forEach {
                             player.sendMessage(it
-                                .replace("(playerPlace)", place.toString())
-                                .replace("(playerScore)", score.toString())
-                                .replace("(playerName)", player.name)
-                                .formatHexColors()
+                                    .replace("(playerPlace)", place.toString())
+                                    .replace("(playerScore)", score.toString())
+                                    .replace("(playerName)", player.name)
+                                    .formatHexColors()
                             )
                         }
                     } else {
@@ -110,14 +110,14 @@ abstract class Occurrence(
                     return@leaderboardLoop
                 }
                 player.sendMessage(
-                    leaderboardMsg
-                        .replace("(first)", first)
-                        .replace("(firstScore)", firstScore.toString())
-                        .replace("(second)", second)
-                        .replace("(secondScore)", secondScore.toString())
-                        .replace("(third)", third)
-                        .replace("(thirdScore)", thirdScore.toString())
-                        .formatHexColors()
+                        leaderboardMsg
+                                .replace("(first)", first)
+                                .replace("(firstScore)", firstScore.toString())
+                                .replace("(second)", second)
+                                .replace("(secondScore)", secondScore.toString())
+                                .replace("(third)", third)
+                                .replace("(thirdScore)", thirdScore.toString())
+                                .formatHexColors()
                 )
             }
             player.sendMessage(plugin.messages.footer.formatHexColors())
@@ -173,7 +173,7 @@ abstract class Occurrence(
                 }
 
                 bossBar.setTitle(
-                    "#c2c2c2Current occurrence: &l$color$friendlyName".formatHexColors()
+                        plugin.messages.bossBarTitle.formatHexColors() + "&l$color$friendlyName".formatHexColors()
                 )
                 bossBar.progress = (timer/time)
                 timer -= 20
