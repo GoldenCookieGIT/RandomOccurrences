@@ -84,5 +84,6 @@ class Messages {
         get() = map["smelter-description"]!!.split("\n")
     val pyrotechnicDescription
         get() = map["pyrotechnic-description"]!!.split("\n")
-
+    val bossBarTitle
+        get() = map["occurrence-bossbar-title"]!!
 }

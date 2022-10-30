@@ -14,6 +14,7 @@ occurrence-leaderboard-player-score:
   - "#b5b5b5 ..."
   - "#b5b5b5 (playerPlace). #969696(playerName) - #ea00ff(playerScore)"
 
+occurrence-bossbar-title: "&7Current occurrence: "
 
 # Friendly names for the occurrences
 creeper-slayer: "Creeper Slayer"
