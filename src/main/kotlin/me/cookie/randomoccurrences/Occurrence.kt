@@ -26,7 +26,8 @@ abstract class Occurrence(
     private val time: Long = plugin.config.getInt("occurrences.$configName.time").toLong() * 1200 /* from minutes to ticks */
     private val rewardMap: Map<Int /* leaderboard place */, Array<Reward> /* rewards to give */> = occurrenceManager.getRewards(configName)
     val bossBar = Bukkit.getServer()
-            .createBossBar(plugin.messages.bossBarTitle.formatHexColors() + friendlyName, BarColor.BLUE, BarStyle.SOLID)
+            .createBossBar("${plugin.messages.bossBarTitle} $friendlyName".formatHexColors(), BarColor.BLUE, BarStyle
+                .SOLID)
     fun start() {
         Bukkit.getOnlinePlayers().forEach { player ->
             occurrenceManager.occurrenceStartCommands.forEach { executableCommand ->
@@ -173,7 +174,7 @@ abstract class Occurrence(
                 }
 
                 bossBar.setTitle(
-                        plugin.messages.bossBarTitle.formatHexColors() + "&l$color$friendlyName".formatHexColors()
+                        "${plugin.messages.bossBarTitle}&l$color$friendlyName".formatHexColors()
                 )
                 bossBar.progress = (timer/time)
                 timer -= 20
