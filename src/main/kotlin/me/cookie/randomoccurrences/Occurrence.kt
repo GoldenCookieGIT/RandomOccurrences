@@ -56,7 +56,8 @@ abstract class Occurrence(
             occurrenceManager.occurrenceEndCommands.forEach { executableCommand ->
                 executableCommand.performCommand(player)
             }
-            occurrenceManager.occurrenceEndSound?.play(player)
+            if (playerScore.keys.contains(player.uniqueId))
+                occurrenceManager.occurrenceEndSound?.play(player)
         }
 
         val sortedMap = playerScore.toList().filter {
