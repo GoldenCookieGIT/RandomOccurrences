@@ -1,4 +1,4 @@
-package me.cookie.util
+package me.cookie.randomoccurrences.util
 
 enum class Executor {
     PLAYER,

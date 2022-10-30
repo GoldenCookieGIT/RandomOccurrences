@@ -1,6 +1,6 @@
 package me.cookie.randomoccurrences
 
-import me.cookie.util.Reward
+import me.cookie.randomoccurrences.util.Reward
 import org.bukkit.Bukkit
 import org.bukkit.boss.BarColor
 import org.bukkit.boss.BarStyle

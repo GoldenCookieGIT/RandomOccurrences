@@ -1,7 +1,7 @@
 package me.cookie.randomoccurrences
 
 import me.cookie.randomoccurrences.occurrences.*
-import me.cookie.util.*
+import me.cookie.randomoccurrences.util.*
 import org.bukkit.Bukkit
 import org.bukkit.Material
 import org.bukkit.Sound

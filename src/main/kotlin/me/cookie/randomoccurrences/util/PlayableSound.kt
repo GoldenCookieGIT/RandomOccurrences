@@ -1,4 +1,4 @@
-package me.cookie.util
+package me.cookie.randomoccurrences.util
 
 import org.bukkit.Sound
 import org.bukkit.entity.Player

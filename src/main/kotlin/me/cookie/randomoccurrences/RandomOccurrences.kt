@@ -3,7 +3,7 @@ package me.cookie.randomoccurrences
 import me.cookie.randomoccurrences.commands.ForceOccurrence
 import me.cookie.randomoccurrences.commands.ReloadMessages
 import me.cookie.randomoccurrences.listeners.*
-import me.cookie.util.Messages
+import me.cookie.randomoccurrences.util.Messages
 import org.bstats.bukkit.Metrics
 import org.bukkit.configuration.file.YamlConfiguration
 import org.bukkit.plugin.java.JavaPlugin

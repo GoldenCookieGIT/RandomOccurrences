@@ -1,4 +1,4 @@
-package me.cookie.util
+package me.cookie.randomoccurrences.util
 
 import me.cookie.randomoccurrences.isFull
 import org.bukkit.entity.Player
