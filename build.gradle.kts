@@ -71,5 +71,5 @@ tasks.withType<ShadowJar> {
     relocate("org.bstats", "me.cookie.bstats")
     relocate("org.reflections", "me.cookie.reflections")
     archiveClassifier.set("")
-    destinationDirectory.set(File("G:\\coding\\Test Servers\\RandomOccurrences\\plugins"))
+    destinationDirectory.set(File("server\\plugins"))
 }
