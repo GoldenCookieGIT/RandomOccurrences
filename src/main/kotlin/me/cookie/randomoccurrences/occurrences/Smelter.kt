@@ -9,6 +9,7 @@ import org.bukkit.entity.Player
 import org.bukkit.event.inventory.ClickType
 import org.bukkit.event.inventory.InventoryClickEvent
 import org.bukkit.event.inventory.InventoryType
+import kotlin.math.ceil
 
 class Smelter(plugin: RandomOccurrences, occurrenceManager: OccurrenceManager):
     Occurrence(
@@ -28,7 +29,6 @@ class Smelter(plugin: RandomOccurrences, occurrenceManager: OccurrenceManager):
     }
 
     override fun onPlayerInventoryClick(event: InventoryClickEvent) {
-        if (event.click != ClickType.LEFT) return
         if (event.whoClicked !is Player) return
         val invType = event.clickedInventory?.type ?: return
         if (invType != InventoryType.FURNACE &&
@@ -38,6 +38,9 @@ class Smelter(plugin: RandomOccurrences, occurrenceManager: OccurrenceManager):
         val item = event.currentItem ?: return
         if (item.type == Material.AIR) return
 
-        addScore(event.whoClicked as Player, item.amount)
+        addScore(event.whoClicked as Player,
+            if (event.click == ClickType.RIGHT) ceil(item.amount.toFloat() * 0.5f).toInt()
+            else item.amount
+        )
     }
 }
