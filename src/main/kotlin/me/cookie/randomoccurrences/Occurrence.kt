@@ -147,14 +147,15 @@ abstract class Occurrence(
         playerScore[player.uniqueId] = playerScore[player.uniqueId]!! + score
     }
 
-    private val occurrenceTimer = object: BukkitRunnable() {
-        override fun run() {
-            end()
-        }
-    }
+    private var occurrenceTimer: BukkitRunnable = object: BukkitRunnable() { override fun run() {} }
 
     private fun startTimer() {
         startBossbar()
+        occurrenceTimer = object: BukkitRunnable() {
+            override fun run() {
+                end()
+            }
+        }
         occurrenceTimer.runTaskLater(plugin, time)
     }
 
