@@ -130,9 +130,10 @@ abstract class Occurrence(
         bossBar.isVisible = false
         bossBar.removeAll()
 
+        stopTimer()
         cleanup()
-        bossBarTask?.cancel()
         playerScore.clear()
+
         occurrenceManager.currentOccurrence = null
         occurrenceManager.startDowntime()
     }
@@ -146,13 +147,20 @@ abstract class Occurrence(
         playerScore[player.uniqueId] = playerScore[player.uniqueId]!! + score
     }
 
+    private val occurrenceTimer = object: BukkitRunnable() {
+        override fun run() {
+            end()
+        }
+    }
+
     private fun startTimer() {
         startBossbar()
-        object: BukkitRunnable() {
-            override fun run() {
-                end()
-            }
-        }.runTaskLater(plugin, time)
+        occurrenceTimer.runTaskLater(plugin, time)
+    }
+
+    private fun stopTimer() {
+        bossBarTask?.cancel()
+        occurrenceTimer.cancel()
     }
 
     private var bossBarTask: BukkitRunnable? = null
