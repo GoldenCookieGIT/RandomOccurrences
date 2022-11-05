@@ -34,14 +34,17 @@ class PAPIPlaceholders(private val plugin: RandomOccurrences): PlaceholderExpans
         }
 
         if (params.endsWith("_score")) {
-            println("score requested of ${params.substringBefore("_score")}")
-            val player = Bukkit.getPlayer(params.substringBefore("_score")) ?: return "No Player Found"
+            println("score requested of ${params.split("_")[1]}")
+            val player = Bukkit.getPlayer(params.substringBefore("_score")
+                .substringAfter("leaderboard_"))
+                ?: return "No Player Found"
 
             return plugin.occurrenceManager.currentOccurrence?.playerScore?.get(player.uniqueId)?.toString() ?: "-1"
         }
 
         if (params.endsWith("_place")) {
-            val player = Bukkit.getPlayer(params.substringBefore("_place")) ?: return "No Player Found"
+            val player = Bukkit.getPlayer(params.substringBefore("_place")
+                .substringAfter("leaderboard_")) ?: return "No Player Found"
 
             return plugin.occurrenceManager.currentOccurrence
                 ?.playerScore
