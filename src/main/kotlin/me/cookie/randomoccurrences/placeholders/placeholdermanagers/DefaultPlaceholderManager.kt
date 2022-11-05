@@ -7,7 +7,7 @@ import org.bukkit.entity.Player
 
 class DefaultPlaceholderManager(private val plugin: RandomOccurrences): PlaceholderManager() {
     init {
-        logger.info("PlaceholderAPI not found, placeholderapi-specific placeholders will not work")
+        logger.warning("PlaceholderAPI not found, placeholderapi-specific placeholders will not work")
     }
 
     override fun setPlaceholders(player: Player?, message: String): String {
@@ -22,7 +22,7 @@ class DefaultPlaceholderManager(private val plugin: RandomOccurrences): Placehol
         "(playerName)",
         "%player_name%", // PlaceholderAPI placeholder lol, requires the Player expansion (most servers have it [hopefully])
         "(friendlyName)",
-        "%ro_occurrence_friendly_name%", // Gets the name of the current occurrence
+        "%ro_occurrence_name%", // Gets the name of the current occurrence
         "(description)",
         "%ro_occurrence_description%", // Gets the description of the current occurrence
         "(first)",
@@ -43,5 +43,8 @@ class DefaultPlaceholderManager(private val plugin: RandomOccurrences): Placehol
         "(playerScore)",
         "%ro_leaderboard_score%",// Get the score of the player that requested the placeholder
         "%ro_leaderboard_{%player_name%}_score%", // Get the score of a specific player
+        // ----------------- //
+        "%ro_occurrence_time_length%", // Get the length of the occurrence in ticks
+        "%ro_occurrence_time_left%", // Get the time left in the occurrence in ticks
     )
 }

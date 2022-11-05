@@ -23,7 +23,6 @@ class PAPIPlaceholders(private val plugin: RandomOccurrences): PlaceholderExpans
     }
 
     override fun onRequest(offlinePlayer: OfflinePlayer?, params: String): String {
-        println("$params requested")
         when (params) {
             "occurrence_name" -> {
                 return plugin.occurrenceManager.currentOccurrence?.friendlyName ?: "None"
@@ -34,23 +33,31 @@ class PAPIPlaceholders(private val plugin: RandomOccurrences): PlaceholderExpans
         }
 
         if (params.endsWith("_score")) {
-            println("score requested of ${params.split("_")[1]}")
-            val player = Bukkit.getPlayer(params.substringBefore("_score")
-                .substringAfter("leaderboard_"))
-                ?: return "No Player Found"
+            val player = if (params.substringAfter("leaderboard_").equals("score", true)) {
+                offlinePlayer
+            } else {
+                Bukkit.getPlayer(params.substringBefore("_score")
+                    .substringAfter("leaderboard_"))
+                    ?: return "No Player Found"
+            }
 
-            return plugin.occurrenceManager.currentOccurrence?.playerScore?.get(player.uniqueId)?.toString() ?: "-1"
+            return plugin.occurrenceManager.currentOccurrence?.playerScore?.get(player?.uniqueId)?.toString() ?: "-1"
         }
 
         if (params.endsWith("_place")) {
-            val player = Bukkit.getPlayer(params.substringBefore("_place")
-                .substringAfter("leaderboard_")) ?: return "No Player Found"
+            val player = if (params.substringAfter("leaderboard_").equals("place", true)) {
+                offlinePlayer
+            } else {
+                Bukkit.getPlayer(params.substringBefore("_score")
+                    .substringAfter("leaderboard_"))
+                    ?: return "No Player Found"
+            }
 
             return plugin.occurrenceManager.currentOccurrence
                 ?.playerScore
                 ?.entries
                 ?.sortedByDescending { it.value }
-                ?.indexOfFirst { it.key == player.uniqueId }
+                ?.indexOfFirst { it.key == player?.uniqueId }
                 ?.plus(1)
                 ?.toString() ?: "-1"
         }
