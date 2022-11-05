@@ -1,7 +1,7 @@
 package me.cookie.randomoccurrences.listeners
 
-import me.cookie.randomoccurrences.OccurrenceManager
-import me.cookie.randomoccurrences.occurrences.events.EntityKillOccurrence
+import me.cookie.randomoccurrences.occurrence.OccurrenceManager
+import me.cookie.randomoccurrences.occurrence.events.EntityKillOccurrence
 import org.bukkit.event.EventHandler
 import org.bukkit.event.Listener
 import org.bukkit.event.entity.EntityDeathEvent

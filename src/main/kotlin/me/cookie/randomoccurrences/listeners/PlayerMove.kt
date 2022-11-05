@@ -1,9 +1,9 @@
 package me.cookie.randomoccurrences.listeners
 
 import com.google.common.collect.Sets
-import me.cookie.randomoccurrences.OccurrenceManager
 import me.cookie.randomoccurrences.PlayerJumpEvent
-import me.cookie.randomoccurrences.occurrences.events.PlayerMoveOccurrence
+import me.cookie.randomoccurrences.occurrence.OccurrenceManager
+import me.cookie.randomoccurrences.occurrence.events.PlayerMoveOccurrence
 import org.bukkit.Material
 import org.bukkit.event.EventHandler
 import org.bukkit.event.Listener
@@ -33,6 +33,7 @@ class PlayerMove(private val occurrenceManager: OccurrenceManager): Listener { /
                 }
             }
         }
+
         if (player.isOnGround) {
             prevPlayersOnGround.add(player.uniqueId)
         } else {

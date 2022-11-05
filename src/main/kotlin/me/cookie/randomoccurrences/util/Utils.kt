@@ -3,6 +3,7 @@ package me.cookie.randomoccurrences.util
 import me.cookie.randomoccurrences.RandomOccurrences
 import net.md_5.bungee.api.ChatColor
 import org.bukkit.Bukkit
+import org.bukkit.entity.Player
 import org.bukkit.inventory.PlayerInventory
 import org.bukkit.plugin.java.JavaPlugin
 import java.io.IOException
@@ -25,6 +26,11 @@ fun String.formatHexColors(): String {
     }
     return ChatColor.translateAlternateColorCodes('&', tempMsg)
 }
+
+fun Player.sendFormattedMessage(message: String) {
+
+}
+
 fun getVersion(plugin: JavaPlugin, resourceId: String, consumer: Consumer<String>) {
     Bukkit.getScheduler().runTaskAsynchronously(plugin, Runnable {
         try {

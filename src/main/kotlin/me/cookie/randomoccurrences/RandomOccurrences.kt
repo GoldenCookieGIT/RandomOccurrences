@@ -3,8 +3,13 @@ package me.cookie.randomoccurrences
 import me.cookie.randomoccurrences.commands.ForceOccurrence
 import me.cookie.randomoccurrences.commands.ReloadMessages
 import me.cookie.randomoccurrences.listeners.*
+import me.cookie.randomoccurrences.occurrence.OccurrenceManager
+import me.cookie.randomoccurrences.placeholders.PlaceholderManager
+import me.cookie.randomoccurrences.placeholders.placeholdermanagers.DefaultPlaceholderManager
+import me.cookie.randomoccurrences.placeholders.placeholdermanagers.PAPIPlaceholderManager
 import me.cookie.randomoccurrences.util.Messages
 import org.bstats.bukkit.Metrics
+import org.bukkit.Bukkit
 import org.bukkit.configuration.file.YamlConfiguration
 import org.bukkit.plugin.java.JavaPlugin
 import java.io.File
@@ -13,12 +18,18 @@ import java.io.InputStreamReader
 class RandomOccurrences: JavaPlugin() {
     lateinit var occurrenceManager: OccurrenceManager
     lateinit var messages: Messages
-
+    lateinit var placeholderManager: PlaceholderManager
     override fun onEnable() {
         val pluginId = 15297
         Metrics(this, pluginId)
 
         messages = Messages()
+
+        placeholderManager = if (Bukkit.getPluginManager().getPlugin("PlaceholderAPI") != null) {
+            PAPIPlaceholderManager(this)
+        } else {
+            DefaultPlaceholderManager(this)
+        }
 
         checkConfig()
         loadMessages()

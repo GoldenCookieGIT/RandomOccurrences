@@ -1,7 +1,7 @@
 package me.cookie.randomoccurrences.listeners
 
-import me.cookie.randomoccurrences.OccurrenceManager
-import me.cookie.randomoccurrences.occurrences.events.PlayerFishOccurrence
+import me.cookie.randomoccurrences.occurrence.OccurrenceManager
+import me.cookie.randomoccurrences.occurrence.events.PlayerFishOccurrence
 import org.bukkit.event.EventHandler
 import org.bukkit.event.Listener
 import org.bukkit.event.player.PlayerFishEvent

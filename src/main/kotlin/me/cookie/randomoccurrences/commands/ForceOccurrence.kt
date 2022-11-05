@@ -1,6 +1,6 @@
 package me.cookie.randomoccurrences.commands
 
-import me.cookie.randomoccurrences.OccurrenceManager
+import me.cookie.randomoccurrences.occurrence.OccurrenceManager
 import org.bukkit.command.Command
 import org.bukkit.command.CommandExecutor
 import org.bukkit.command.CommandSender

@@ -1,8 +1,8 @@
 package me.cookie.randomoccurrences.listeners
 
-import me.cookie.randomoccurrences.OccurrenceManager
 import me.cookie.randomoccurrences.PlayerJumpEvent
-import me.cookie.randomoccurrences.occurrences.events.PlayerJumpOccurrence
+import me.cookie.randomoccurrences.occurrence.OccurrenceManager
+import me.cookie.randomoccurrences.occurrence.events.PlayerJumpOccurrence
 import org.bukkit.event.EventHandler
 import org.bukkit.event.Listener
 
