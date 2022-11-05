@@ -1,3 +1,7 @@
 package me.cookie.randomoccurrences.occurrence
 
-data class Reward(val itemReward: ItemReward?, val executableCommandReward: ExecutableCommand?)
+import org.bukkit.entity.Player
+
+interface Reward {
+    fun reward(player: Player)
+}

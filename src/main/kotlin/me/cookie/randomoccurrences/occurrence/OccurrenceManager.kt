@@ -19,8 +19,7 @@ class OccurrenceManager(val plugin: RandomOccurrences) {
 
     companion object {
         val occurrences = mutableListOf<Occurrence>()
-        val items = mutableMapOf<String, ItemReward>()
-        val commands = mutableMapOf<String, ExecutableCommand>()
+        val rewards = mutableMapOf<String, Array<Reward>>()
     }
 
     val occurrenceStartCommands = mutableListOf<ExecutableCommand>()
@@ -79,17 +78,14 @@ class OccurrenceManager(val plugin: RandomOccurrences) {
 
     fun getRewards(configName: String): Map<Int, Array<Reward>> {
         val rewardMap = mutableMapOf<Int, Array<Reward>>()
-        val configurationSection = plugin.config.getConfigurationSection("occurrences.$configName.rewards") ?: return mapOf()
+        val occurrenceRewardsConfigSection = plugin.config.getConfigurationSection("occurrences.$configName.rewards") ?: return mapOf()
 
-        configurationSection.getKeys(false).forEach { place ->
-            val rewards: Array<Reward> = configurationSection.getStringList(place).map {
-                val item = items[it]
-                val command = commands[it]
-                Reward(item, command)
-            }.toTypedArray()
-            rewardMap[place.toInt()] = rewards.clone().toMutableList().apply {
-                addAll(rewardMap[place.toInt()] ?: arrayOf())
-            }.toTypedArray()
+        occurrenceRewardsConfigSection.getKeys(false).forEach { place ->
+            var occurrenceRewards: Array<Reward> = arrayOf()
+            occurrenceRewardsConfigSection.getStringList(place).forEach { reward ->
+                occurrenceRewards = occurrenceRewards.plus(rewards[reward] ?: arrayOf())
+            }
+            rewardMap[place.toInt()] = occurrenceRewards
         }
         return rewardMap
     }
@@ -160,12 +156,13 @@ class OccurrenceManager(val plugin: RandomOccurrences) {
                 meta.lore = lore ?: listOf<String>()
                 item.itemMeta = meta
 
-                items[configReward] = ItemReward(item)
+                rewards[configReward] = (rewards[configReward] ?: arrayOf()).clone().plus(ItemReward(item))
             }
 
             if (configSection.contains("command", true)) {
                 val commandSection = configSection.getConfigurationSection("command")!!
-                commands[configReward] = compileExecutableCommand(commandSection)
+                rewards[configReward] = (rewards[configReward] ?: arrayOf()).clone()
+                    .plus(CommandReward(compileExecutableCommand(commandSection)))
             }
         }
 

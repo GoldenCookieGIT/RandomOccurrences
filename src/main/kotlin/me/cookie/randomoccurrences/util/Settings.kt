@@ -1,5 +1,8 @@
 package me.cookie.randomoccurrences.util
 
+import me.cookie.randomoccurrences.occurrence.Occurrence
+import me.cookie.randomoccurrences.occurrence.Reward
+
 class Settings {
     val map = HashMap<String, String>()
 
@@ -18,8 +21,14 @@ class Settings {
     val worldBlacklist
         get() = map["world-blacklist"]!!.split("\n")
 
+    var rewards = HashMap<Occurrence, HashMap<Int, Array<Reward>>>() // Leaderboard place -> rewards
 
-    fun reloadConfig() {
+    fun reload() {
+        /* TODO:
+        Recompile config
+        Recompile Start/End events
 
+        Get the rest of the options from the config
+         */
     }
 }
