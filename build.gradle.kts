@@ -15,11 +15,13 @@ repositories {
     mavenCentral()
     maven("https://hub.spigotmc.org/nexus/content/repositories/snapshots/")
     maven("https://oss.sonatype.org/content/repositories/central")
+    maven("https://repo.extendedclip.com/content/repositories/placeholderapi/")
 }
 
 dependencies {
     compileOnly("org.spigotmc:spigot-api:1.18.2-R0.1-20220607.160742-53")
     compileOnly("org.jetbrains.kotlin:kotlin-stdlib:1.6.0") // Use kotlin
+    compileOnly("me.clip:placeholderapi:2.11.2") // Use placeholderapi
     implementation("org.bstats:bstats-bukkit:3.0.0") // Shade bStats
 }
 
@@ -61,6 +63,8 @@ bukkit {
             default = BukkitPluginDescription.Permission.Default.OP
         }
     }
+
+    softDepend = listOf("PlaceholderAPI")
 }
 
 tasks.withType<KotlinCompile> {
