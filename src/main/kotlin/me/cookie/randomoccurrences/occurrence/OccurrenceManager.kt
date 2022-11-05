@@ -135,14 +135,19 @@ class OccurrenceManager(val plugin: RandomOccurrences) {
                 val itemSection = configSection.getConfigurationSection("item")!!
                 val material = Material.valueOf(itemSection.getString("material", "AIR")!!)
                 val amount = itemSection.getInt("amount", 1)
-                val itemName = itemSection.getString("item-name", "#ff0000Unknown")!!.formatHexColors()
+
                 val lore = itemSection.getStringList("lore").stream().map {
                     it.formatHexColors()
                 }.toList()
 
                 val item = ItemStack(material, amount)
                 val meta = item.itemMeta!!
-                meta.setDisplayName(itemName)
+
+                val itemName = itemSection.getString("item-name", null)
+
+                itemName?.let {
+                    meta.setDisplayName(it.formatHexColors())
+                }
 
                 configSection.getStringList("item.enchantments").forEach enchantmentLoop@{ // add enchants to item
                     val enchantment = Enchantment.getByName(it.split(":")[0]) ?: return@enchantmentLoop
