@@ -11,8 +11,8 @@ class PAPIPlaceholderManager(private val plugin: RandomOccurrences): Placeholder
 
     init {
         logger.info("Hooked into PlaceholderAPI")
-        logger.warning("The use of \"()\" placeholders is NOT supported with placeholderapi and could be removed at " +
-                "ANY TIME, please use the new %% placeholders as they're compatible with and without placeholderapi")
+        logger.warning("The use of \"()\" placeholders is NOT supported with placeholderapi," +
+                " please use the new %% placeholders as they're compatible with and without placeholderapi")
         registerPlaceholders()
     }
 
@@ -25,7 +25,7 @@ class PAPIPlaceholderManager(private val plugin: RandomOccurrences): Placeholder
     }
 
     private fun registerPlaceholders() {
-         println("${PAPIPlaceholders(plugin).register()} registered placeholders")
+        PAPIPlaceholders(plugin).register()
     }
 
 }
