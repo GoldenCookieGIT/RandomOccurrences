@@ -1,5 +1,6 @@
-package me.cookie.randomoccurrences
+package me.cookie.randomoccurrences.util
 
+import me.cookie.randomoccurrences.RandomOccurrences
 import net.md_5.bungee.api.ChatColor
 import org.bukkit.Bukkit
 import org.bukkit.inventory.PlayerInventory
@@ -10,7 +11,7 @@ import java.util.*
 import java.util.function.Consumer
 import java.util.regex.Pattern
 
-val hexPattern = Pattern.compile("#[a-fA-F0-9]{6}")
+val hexPattern: Pattern = Pattern.compile("#[a-fA-F0-9]{6}")
 
 val logger = JavaPlugin.getPlugin(RandomOccurrences::class.java).logger
 
@@ -36,8 +37,8 @@ fun getVersion(plugin: JavaPlugin, resourceId: String, consumer: Consumer<String
                     }
                 }
         } catch (exception: IOException) {
-            plugin.logger.info("Unable to check for updates: " + exception.message)
-            consumer.accept("0.0.0")
+            logger.info("Unable to check for updates: " + exception.message)
+            consumer.accept(plugin.description.version)
         }
     })
 }
