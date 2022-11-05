@@ -38,7 +38,7 @@ class OccurrenceManager(val plugin: RandomOccurrences) {
 
     fun pickOccurrence() {
         if (occurrences.isEmpty()) {
-            plugin.logger.warning("No occurrences found!")
+            logger.warning("No occurrences found!")
             return
         }
         val randomOccurrence = occurrences.random()
@@ -131,7 +131,7 @@ class OccurrenceManager(val plugin: RandomOccurrences) {
         val config = plugin.config
         val configRewards = config.getConfigurationSection("rewards")
         if (configRewards == null) {
-            plugin.logger.warning("No items found in config!")
+            logger.warning("No items found in config!")
             return
         }
         configRewards.getKeys(false).forEach { configReward ->

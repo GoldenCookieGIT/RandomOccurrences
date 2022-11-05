@@ -1,7 +1,7 @@
 package me.cookie.randomoccurrences.listeners
 
 import me.cookie.randomoccurrences.RandomOccurrences
-import me.cookie.randomoccurrences.getVersion
+import me.cookie.randomoccurrences.util.getVersion
 import org.bukkit.ChatColor
 import org.bukkit.entity.Player
 import org.bukkit.event.EventHandler
